@@ -244,7 +244,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
         // TODO add your handling code here:
         
-        CreateConnection.insertDatatoDatabase("insert into check_in_out VALUES(" + regNo  +",CURRENT_TIMESTAMP," + "1)");
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,ttype) VALUES("+regNo+",1)");
         checkOutButton.setEnabled(false);
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
@@ -282,7 +282,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
 
     private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInButtonActionPerformed
         // TODO add your handling code here:
-        CreateConnection.insertDatatoDatabase("insert into check_in_out VALUES(" + regNo  +",CURRENT_TIMESTAMP," + "0)");
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,ttype) VALUES("+regNo+",0)");
         checkInButton.setEnabled(false);
     }//GEN-LAST:event_checkInButtonActionPerformed
 
