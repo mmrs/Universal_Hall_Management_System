@@ -54,8 +54,9 @@ public class UniversalHallManagementSystem {
             
         }
         /* Create and display the form */
-      
+            
             MainFrame frame = new MainFrame();
+            System.out.println("Hello Project Is starting");
             frame.setVisible(true);
             frame.setResizable(false);
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
