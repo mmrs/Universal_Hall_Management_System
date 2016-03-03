@@ -79,7 +79,6 @@
     <Component class="javax.swing.JTextField" name="userNameTextField">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="olee"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="passwordTextField">

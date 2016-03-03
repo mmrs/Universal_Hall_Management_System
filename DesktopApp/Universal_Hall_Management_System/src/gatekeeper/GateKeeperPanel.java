@@ -255,15 +255,13 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         checkInButton.setEnabled(true);
         checkOutButton.setEnabled(true);
         try {
-            results = CreateConnection.getResultFromDatabase("select student_name from student_info where id=" + regNo +"");
-            resultSet =results.getLeft();
+            resultSet = CreateConnection.getResultFromDatabase("select student_name from student_info where id=" + regNo +"");
             if(resultSet.next())
             studentName.setText(resultSet.getString("student_name"));
             else 
                 studentName.setText("Student Not Found On DataBase");
             
-            results = CreateConnection.getResultFromDatabase("select ttype from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
-            resultSet = results.getLeft();
+            resultSet = CreateConnection.getResultFromDatabase("select ttype from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
             resultSet.next();
             String type = resultSet.getString("ttype");
             if(type.equals("0")){
@@ -273,9 +271,9 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             
             checkOutButton.setEnabled(false);
-            Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_getRegNoTextFieldActionPerformed
@@ -289,13 +287,12 @@ public class GateKeeperPanel extends javax.swing.JPanel {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         try {
             // TODO add your handling code here:
-            results = CreateConnection.getResultFromDatabase("select * from check_in_out ORDER BY DAY_TIME DESC");
-            resultSet = results.getLeft();
+            resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out ORDER BY DAY_TIME DESC");
             logTable.setModel(DbUtils.resultSetToTableModel(resultSet));
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -305,8 +302,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
           try {
             // TODO add your handling code here:
-            results = CreateConnection.getResultFromDatabase("select * from check_in_out WHERE id = "+ SearchInEntryView.getText()  +" ORDER BY DAY_TIME DESC");
-            resultSet = results.getLeft();
+            resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out WHERE id = "+ SearchInEntryView.getText()  +" ORDER BY DAY_TIME DESC");
             logTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);

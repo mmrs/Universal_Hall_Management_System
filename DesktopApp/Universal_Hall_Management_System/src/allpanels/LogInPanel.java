@@ -61,7 +61,6 @@ public class LogInPanel extends javax.swing.JPanel {
         passwordLabel.setText("Password");
 
         userNameTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        userNameTextField.setText("olee");
 
         passwordTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -116,6 +115,7 @@ public class LogInPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String userName = userNameTextField.getText().trim();
         String password = new String(passwordTextField.getPassword());
+        passwordTextField.setText("");
         try {
             logInFunction(userName, password);
         } catch (ClassNotFoundException ex) {
@@ -132,9 +132,7 @@ public class LogInPanel extends javax.swing.JPanel {
         if (userName.isEmpty() || password.isEmpty()) {
             return;
         }
-        Pair<ResultSet, ResultSetMetaData> results = CreateConnection.getResultFromDatabase("select * from users where user_name='" + userName + "'");
-        resultSet = results.getLeft();
-        resultSetMetaData = results.getRight();
+        resultSet = CreateConnection.getResultFromDatabase("select * from users where user_name='" + userName + "'");
         String responsePassword = "";
         if (resultSet.next()) {
 

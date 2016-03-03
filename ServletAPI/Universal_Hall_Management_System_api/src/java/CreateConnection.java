@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class CreateConnection {
     
 
-    public static Pair<ResultSet,ResultSetMetaData> getResultFromDatabase(String query) throws ClassNotFoundException, SQLException {
+    public static ResultSet getResultFromDatabase(String query) throws ClassNotFoundException, SQLException {
 
         try {
             System.out.println(query);
@@ -26,11 +26,8 @@ public class CreateConnection {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/uhms","root","");
             java.sql.Statement st = con.createStatement();
             System.out.println("connection established successfully...!!\n");
-
             ResultSet rs = st.executeQuery(query);
-            ResultSetMetaData rsm = rs.getMetaData();
-            Pair<ResultSet,ResultSetMetaData> result = new Pair(rs, rsm);
-            return result;
+            return rs;
         }
         catch(Exception e) {
             

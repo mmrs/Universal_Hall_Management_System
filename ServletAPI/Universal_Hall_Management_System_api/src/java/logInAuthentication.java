@@ -30,17 +30,13 @@ public class logInAuthentication extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        StaticData.phone = request.getParameter("phone");
+        StaticData.password = request.getParameter("password");
+        
         try {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet logInAuthentication</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet logInAuthentication at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println(StaticData.phone + " " + StaticData.password);
+           
         } finally {
             out.close();
         }
