@@ -16,33 +16,37 @@ public class RoomInformationPanel extends javax.swing.JPanel {
     int floorInformation[][] = null;
     int totalRoom;
     int firstTime = 0;
-    
+
     /**
      * Creates new form RoomInformationPanel
      */
     public RoomInformationPanel() {
         initComponents();
     }
-    
-    boolean checkFloorInformationIsUpdatedOrNot(int newInfo[][]){
-            if(floorInformation.length != newInfo.length) return false;
-            
-            for(int i =1;i< floorInformation.length;i++){
-                for(int j = 1;j<floorInformation[i].length;j++){
-                    if(floorInformation[i][j]!=newInfo[i][j]) return false;
+
+    boolean checkFloorInformationIsUpdatedOrNot(int newInfo[][]) {
+        if (floorInformation.length != newInfo.length) {
+            return false;
+        }
+
+        for (int i = 1; i < floorInformation.length; i++) {
+            for (int j = 1; j < floorInformation[i].length; j++) {
+                if (floorInformation[i][j] != newInfo[i][j]) {
+                    return false;
                 }
             }
-            
-            return true;
+        }
+
+        return true;
     }
-    
+
     public void setFloorInformation(int floorInformation[][]) {
-        if(this.floorInformation==null)
-        this.floorInformation = floorInformation;
-        else if(checkFloorInformationIsUpdatedOrNot(floorInformation)==false){
+        if (this.floorInformation == null) {
+            this.floorInformation = floorInformation;
+        } else if (checkFloorInformationIsUpdatedOrNot(floorInformation) == false) {
             resetFirstTimeTableShown();
         }
-        
+
         this.floorInformation = floorInformation;
     }
 
@@ -75,18 +79,18 @@ public class RoomInformationPanel extends javax.swing.JPanel {
         }
         firstTime = 1;
     }
-    
-    
+
     void showRoomInformationTable() {
         if (firstTime == 0) {
             showFirstTimeRoomInformationTable();
         }
     }
-    
-    public void setFirstTimeTableShown(){
+
+    public void setFirstTimeTableShown() {
         this.firstTime = 1;
     }
-    public void resetFirstTimeTableShown(){
+
+    public void resetFirstTimeTableShown() {
         this.firstTime = 0;
     }
 

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
+import com.mysql.jdbc.ResultSet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +36,21 @@ public class logInAuthentication extends HttpServlet {
         PrintWriter out = response.getWriter();
         StaticData.phone = request.getParameter("phone");
         StaticData.password = request.getParameter("password");
+        try {
+            StaticData.resultSet = CreateConnection.getResultFromDatabase("SELECT id from gardian_info WHERE phone= " + StaticData.phone+ ")");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(logInAuthentication.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(logInAuthentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println(StaticData.phone + " " + StaticData.password);
+            try {
+                /* TODO output your page here. You may use following sample code. */
+                out.println(StaticData.phone + " " + StaticData.password + " " + StaticData.resultSet.getString("id"));
+            } catch (SQLException ex) {
+                Logger.getLogger(logInAuthentication.class.getName()).log(Level.SEVERE, null, ex);
+            }
            
         } finally {
             out.close();

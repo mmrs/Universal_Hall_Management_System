@@ -42,11 +42,14 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
     }
     
     void goRoomInformationPanel(int floorInformation[][]){
+       
         roomInformationPanel.setFloorInformation(floorInformation);
+      
         if(roomInformationPanel.isFloorInformationValid()==0){
             JOptionPane.showMessageDialog(this, "Please Edit The Floor Information Table");
             return;
         }
+        
         roomInformationPanel.showRoomInformationTable();
         cardlayout.show(panelContainer,"RoomInformationPanel");
         

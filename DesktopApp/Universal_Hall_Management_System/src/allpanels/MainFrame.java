@@ -65,7 +65,7 @@ public class MainFrame extends javax.swing.JFrame {
         cardLayout.show(panelContainer, "LogInPanel");
       //  loggedInAsLabel.setText("Universal Hall Management System");
      //   logOutButton.setVisible(false);
-        
+     
     }
    
    public void goAdminPanel(String userName){

@@ -135,10 +135,8 @@ public class LogInPanel extends javax.swing.JPanel {
         resultSet = CreateConnection.getResultFromDatabase("select * from users where user_name='" + userName + "'");
         String responsePassword = "";
         if (resultSet.next()) {
-
             responsePassword = resultSet.getString("password");
             System.out.println(responsePassword + " " + password);
-
         }
         if (responsePassword.equals(password)) {
 
@@ -159,10 +157,7 @@ public class LogInPanel extends javax.swing.JPanel {
         }
         if(type ==2) {
             parentFrame.goGateKeeperPanel(resultSet.getString("full_name"));
-            
         }
-
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

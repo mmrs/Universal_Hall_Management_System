@@ -144,6 +144,11 @@ public class AdminPanel extends javax.swing.JPanel {
         adminInformationLabel.setText("Admin Information Panel");
 
         logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -168,6 +173,11 @@ public class AdminPanel extends javax.swing.JPanel {
                 .addComponent(mainAdminTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        // TODO add your handling code here:
+        parentFrame.goLoginPanel();
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
     public void setAdminInformationLabel(String name) {
         adminInformationLabel.setText("Logged In As: " + name + " [Admin]");
