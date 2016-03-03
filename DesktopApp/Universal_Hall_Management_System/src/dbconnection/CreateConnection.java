@@ -46,7 +46,6 @@ public class CreateConnection {
             java.sql.Statement st = con.createStatement();
             st.execute(query);
             System.out.println("connection established successfully...!!\n");
-
         }
         catch(ClassNotFoundException | SQLException e) {
             

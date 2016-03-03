@@ -5,8 +5,10 @@
  */
 package AdminTabPackages.hallinformationpackage;
 
+import dbconnection.CreateConnection;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -23,6 +25,7 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
      */
     public HallInformationInputFrame() {
         initComponents();
+        confirmButton.setVisible(false);
         readyCardLayout();
         goBasicInformationPanel();
     }
@@ -52,7 +55,7 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
         
         roomInformationPanel.showRoomInformationTable();
         cardlayout.show(panelContainer,"RoomInformationPanel");
-        
+        confirmButton.setVisible(true);
         backButton.setVisible(true);
     }
 
@@ -70,8 +73,6 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
         editRoomButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         javax.swing.GroupLayout panelContainerLayout = new javax.swing.GroupLayout(panelContainer);
         panelContainer.setLayout(panelContainerLayout);
         panelContainerLayout.setHorizontalGroup(
@@ -84,6 +85,11 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
         );
 
         confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
 
         editRoomButton.setText("Edit Room Detail");
         editRoomButton.addActionListener(new java.awt.event.ActionListener() {
@@ -142,8 +148,35 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         goBasicInformationPanel();
         backButton.setVisible(false);
+        confirmButton.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+       int flag =  JOptionPane.showConfirmDialog(this, "Are you sure about the information. Please check the information carefully.");
+        if(flag==JOptionPane.YES_OPTION){
+            updateHallInformation();
+        }else {
+            
+        }
+    }//GEN-LAST:event_confirmButtonActionPerformed
+    
+    private void updateHallInformation(){
+        JTable roomInfo = roomInformationPanel.getRoomInformationTable();
+        
+        String query = "";
+        int floor , roomNumber , capacity;
+        for(int i = 0;i<roomInfo.getRowCount();i++){
+            floor = (int)roomInfo.getValueAt(i, 0);
+            roomNumber = (int)roomInfo.getValueAt(i, 1);
+            capacity = (int) roomInfo.getValueAt(i, 2);
+            
+            query = "insert into hall_info values(" + floor +"," + roomNumber+ ","+capacity+")";
+           // System.out.println(query);
+            CreateConnection.insertDatatoDatabase(query); 
+        }
+        
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

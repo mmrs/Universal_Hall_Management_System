@@ -94,15 +94,22 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Floor Number", "Capacity 1", "Capacity 2", "Capacity 3", "Capacity 4"
+                "Floor Number", "Number Of Room"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         floorInformationTabel.getTableHeader().setReorderingAllowed(false);
@@ -110,9 +117,6 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
         if (floorInformationTabel.getColumnModel().getColumnCount() > 0) {
             floorInformationTabel.getColumnModel().getColumn(0).setResizable(false);
             floorInformationTabel.getColumnModel().getColumn(1).setResizable(false);
-            floorInformationTabel.getColumnModel().getColumn(2).setResizable(false);
-            floorInformationTabel.getColumnModel().getColumn(3).setResizable(false);
-            floorInformationTabel.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout floorInformationTableContainerLayout = new javax.swing.GroupLayout(floorInformationTableContainer);

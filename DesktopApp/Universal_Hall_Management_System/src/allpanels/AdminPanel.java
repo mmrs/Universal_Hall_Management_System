@@ -6,6 +6,7 @@
 package allpanels;
 
 import AdminTabPackages.HallInformationPanel;
+import AdminTabPackages.StudentManagementPanel;
 import java.awt.CardLayout;
 
 /**
@@ -19,7 +20,9 @@ public class AdminPanel extends javax.swing.JPanel {
      */
     MainFrame parentFrame = null;
     HallInformationPanel hallInformationPanel = new HallInformationPanel();
+    StudentManagementPanel studentManagementPanel = new StudentManagementPanel();
     CardLayout cardLayoutForHallInformationTab = new CardLayout();
+    CardLayout cardLayoutForStudentManagementTab = new CardLayout();
     
     public AdminPanel() {
         initComponents();
@@ -34,8 +37,13 @@ public class AdminPanel extends javax.swing.JPanel {
         initComponents();
         this.parentFrame = parent;
         setHallInformationTab();
+        setStudentManagementTab();
     }
-    
+    void setStudentManagementTab(){
+        studentManagementPanelContainer.setLayout(cardLayoutForStudentManagementTab);
+        studentManagementPanelContainer.add("StudentManagementPanel",studentManagementPanel);
+        cardLayoutForStudentManagementTab.show(studentManagementPanelContainer,"StudentManagementPanel");
+    }
     void setHallInformationTab(){
       hallInformationPanelContainer.setLayout(cardLayoutForHallInformationTab);
       hallInformationPanelContainer.add("HallInformationPanel",hallInformationPanel);
@@ -55,6 +63,7 @@ public class AdminPanel extends javax.swing.JPanel {
         mealManagementTabPanel = new javax.swing.JPanel();
         checkInCheckOutTabPanel = new javax.swing.JPanel();
         studentManagementTabPanel = new javax.swing.JPanel();
+        studentManagementPanelContainer = new javax.swing.JPanel();
         adminOptionsTabPanel = new javax.swing.JPanel();
         hallInformationTabPanel = new javax.swing.JPanel();
         hallInformationPanelContainer = new javax.swing.JPanel();
@@ -87,15 +96,28 @@ public class AdminPanel extends javax.swing.JPanel {
 
         mainAdminTabPanel.addTab("Check in Check out", checkInCheckOutTabPanel);
 
+        javax.swing.GroupLayout studentManagementPanelContainerLayout = new javax.swing.GroupLayout(studentManagementPanelContainer);
+        studentManagementPanelContainer.setLayout(studentManagementPanelContainerLayout);
+        studentManagementPanelContainerLayout.setHorizontalGroup(
+            studentManagementPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        studentManagementPanelContainerLayout.setVerticalGroup(
+            studentManagementPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 289, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout studentManagementTabPanelLayout = new javax.swing.GroupLayout(studentManagementTabPanel);
         studentManagementTabPanel.setLayout(studentManagementTabPanelLayout);
         studentManagementTabPanelLayout.setHorizontalGroup(
             studentManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+            .addComponent(studentManagementPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         studentManagementTabPanelLayout.setVerticalGroup(
             studentManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGroup(studentManagementTabPanelLayout.createSequentialGroup()
+                .addComponent(studentManagementPanelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 101, Short.MAX_VALUE))
         );
 
         mainAdminTabPanel.addTab("Student Management", studentManagementTabPanel);
@@ -192,6 +214,7 @@ public class AdminPanel extends javax.swing.JPanel {
     private javax.swing.JButton logOutButton;
     private javax.swing.JTabbedPane mainAdminTabPanel;
     private javax.swing.JPanel mealManagementTabPanel;
+    private javax.swing.JPanel studentManagementPanelContainer;
     private javax.swing.JPanel studentManagementTabPanel;
     // End of variables declaration//GEN-END:variables
 }

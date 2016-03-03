@@ -5,6 +5,7 @@
  */
 package AdminTabPackages.hallinformationpackage;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -72,7 +73,7 @@ public class RoomInformationPanel extends javax.swing.JPanel {
                 for (int i = 0; i < floorInformation[floorNumber][capacity]; i++) {
                     model.setValueAt(floorNumber, row, 0);
                     model.setValueAt(romCnt++, row, 1);
-                    model.setValueAt(capacity, row, 2);
+                    model.setValueAt(4, row, 2);
                     row++;
                 }
             }
@@ -94,6 +95,17 @@ public class RoomInformationPanel extends javax.swing.JPanel {
         this.firstTime = 0;
     }
 
+    public int[][] getFloorInformation() {
+        return floorInformation;
+    }
+
+    public JTable getRoomInformationTable() {
+        return roomInformationTable;
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,8 +160,8 @@ public class RoomInformationPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 257, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 149, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
