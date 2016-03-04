@@ -5,10 +5,12 @@
  */
 package AdminTabPackages;
 
+import BasicPackages.Student;
 import dbconnection.CreateConnection;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,7 +99,10 @@ public class StudentManagementPanel extends javax.swing.JPanel {
 
     private void addStudentFromDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentFromDatabaseButtonActionPerformed
         try {
-            addStudentFromDataBase();
+            
+           ResultSet reuslt =  getUnallocatedStudentResultSet();
+            ArrayList<Student> studentList = getStudentArrayList(reuslt);
+            
         } catch (SQLException ex) {
             Logger.getLogger(StudentManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -105,7 +110,7 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addStudentFromDatabaseButtonActionPerformed
 
-    public void addStudentFromDataBase() throws SQLException, ClassNotFoundException{
+    public ResultSet getUnallocatedStudentResultSet() throws SQLException, ClassNotFoundException{
          ResultSet result = null;
             result = CreateConnection.getResultFromDatabase("SELECT COUNT(id) as count FROM allocated");
 
@@ -128,12 +133,24 @@ public class StudentManagementPanel extends javax.swing.JPanel {
                          + "WHERE student_status.status='current') t LEFT JOIN "
                          + "allocated on t.id = allocated.id WHERE allocated.id is null;");
             }
-            
-            while(result.next()){
-                System.out.println("id = "+result.getInt(1) + " name = "+result.getString(2)+" dept = "+result.getString(3));
-            }
-            
+            return result;
+           // while(result.next()){
+           //     System.out.println("id = "+result.getInt(1) + " name = "+result.getString(2)+" dept = "+result.getString(3));
+           // }  
     }
+    
+    public ArrayList<Student> getStudentArrayList(ResultSet result) throws SQLException {
+        ArrayList<Student> studentList = new ArrayList<>();
+        while(result.next()){
+            Student student = new Student(result.getInt(1),result.getString("student_name"),result.getString("student_dept"),result.getInt("student_session"));
+            studentList.add(student);
+            System.out.println(student);
+        }
+        return studentList;
+    }
+    
+    
+    
     private void addSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSingleStudentButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addSingleStudentButtonActionPerformed
