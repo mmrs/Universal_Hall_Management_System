@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import dbconnection.CreateConnection;
+import diningmanager.DinigManagerPanel;
 import extra.Pair;
 import gatekeeper.*;
 
@@ -37,6 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
     LogInPanel loginPanel = null;
     AdminPanel adminPanel = null;
     GateKeeperPanel gateKeeperPanel = null;
+    DinigManagerPanel dinigManagerPanel = null;
     
     public MainFrame() {
         initComponents();
@@ -49,7 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
         loginPanel = new LogInPanel(this);
         adminPanel = new AdminPanel(this);
         gateKeeperPanel = new GateKeeperPanel(this);
-        
+        dinigManagerPanel = new DinigManagerPanel(this);
     }
     void makeCardLayoutReady(){
         cardLayout = new CardLayout();
@@ -57,6 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelContainer.add("LogInPanel",loginPanel);
         panelContainer.add("AdminPanel",adminPanel);
         panelContainer.add("GateKeeperPanel",gateKeeperPanel);
+        panelContainer.add("DinigManagerPanel",dinigManagerPanel);
         //logOutButton.setVisible(false);
         goLoginPanel();
     }
@@ -71,13 +74,13 @@ public class MainFrame extends javax.swing.JFrame {
    public void goAdminPanel(String userName){
      //  System.out.println("hello wold");
        cardLayout.show(panelContainer, "AdminPanel");
-       adminPanel.setAdminInformationLabel(userName);
+       adminPanel.setUserInformationLabel(userName);
    }
    
    public void goGateKeeperPanel(String userName){
        
        cardLayout.show(panelContainer, "GateKeeperPanel");
-       gateKeeperPanel.setAdminInformationLabel(userName);
+       gateKeeperPanel.setUserInformationLabel(userName);
        
    }
     
@@ -133,6 +136,12 @@ public class MainFrame extends javax.swing.JFrame {
     
     public JPanel getAdminPanel(){
         return adminPanel;
+    }
+
+    void goDinigManagerPanel(String string) {
+       cardLayout.show(panelContainer,"DinigManagerPanel");
+       dinigManagerPanel.setUserInformationLabel(string);
+    
     }
     
     /**

@@ -153,9 +153,13 @@ public class LogInPanel extends javax.swing.JPanel {
         if (type == 1) {
             parentFrame.goAdminPanel(resultSet.getString("full_name"));
         }
-        if(type ==2) {
+        else if(type ==2) {
             parentFrame.goGateKeeperPanel(resultSet.getString("full_name"));
         }
+        else if(type ==3){
+            parentFrame.goDinigManagerPanel(resultSet.getString("full_name"));
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

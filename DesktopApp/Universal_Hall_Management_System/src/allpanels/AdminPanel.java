@@ -201,7 +201,7 @@ public class AdminPanel extends javax.swing.JPanel {
         parentFrame.goLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
-    public void setAdminInformationLabel(String name) {
+    public void setUserInformationLabel(String name) {
         adminInformationLabel.setText("Logged In As: " + name + " [Admin]");
     }
 
