@@ -19,12 +19,12 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="addStudentFromCsvFileButton" max="32767" attributes="0"/>
+                  <Component id="addStudentFromDatabaseButton" max="32767" attributes="0"/>
                   <Component id="addSingleStudentButton" max="32767" attributes="0"/>
                   <Component id="removeSingleStudentButton" max="32767" attributes="0"/>
                   <Component id="removeStudentCompletSeason" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="284" max="32767" attributes="0"/>
+              <EmptySpace pref="276" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="addStudentFromCsvFileButton" min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="addStudentFromDatabaseButton" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="addSingleStudentButton" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -45,12 +45,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="addStudentFromCsvFileButton">
+    <Component class="javax.swing.JButton" name="addStudentFromDatabaseButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Student From Csv File"/>
+        <Property name="text" type="java.lang.String" value="Add Students From Student Database"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStudentFromCsvFileButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStudentFromDatabaseButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addSingleStudentButton">
