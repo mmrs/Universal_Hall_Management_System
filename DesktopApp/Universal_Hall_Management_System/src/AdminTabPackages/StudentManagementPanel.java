@@ -5,12 +5,17 @@
  */
 package AdminTabPackages;
 
+import BasicPackages.Room;
 import BasicPackages.Student;
 import dbconnection.CreateConnection;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,10 +104,11 @@ public class StudentManagementPanel extends javax.swing.JPanel {
 
     private void addStudentFromDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentFromDatabaseButtonActionPerformed
         try {
-            
-           ResultSet reuslt =  getUnallocatedStudentResultSet();
+
+            ResultSet reuslt = getUnallocatedStudentResultSet();
             ArrayList<Student> studentList = getStudentArrayList(reuslt);
-            
+            ArrayList<Room> room_list = getCurrentRoomInfoArrarList();
+                allocateSeatsToStudents(studentList, room_list);
         } catch (SQLException ex) {
             Logger.getLogger(StudentManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -110,47 +116,164 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addStudentFromDatabaseButtonActionPerformed
 
-    public ResultSet getUnallocatedStudentResultSet() throws SQLException, ClassNotFoundException{
-         ResultSet result = null;
-            result = CreateConnection.getResultFromDatabase("SELECT COUNT(id) as count FROM allocated");
+    public ResultSet getUnallocatedStudentResultSet() throws SQLException, ClassNotFoundException {
+        ResultSet result = null;
+        result = CreateConnection.getResultFromDatabase("SELECT COUNT(id) as count FROM allocated");
 
-            int numberOfRow = 0;
-            System.out.println(result);
+        int numberOfRow = 0;
+        System.out.println(result);
 
-            if (result.next()) {
-                numberOfRow = result.getInt("count");
-            }
+        if (result.next()) {
+            numberOfRow = result.getInt("count");
+        }
 
-            System.out.println("number of row = " + numberOfRow);
-            if (numberOfRow == 0) {
-                  result = CreateConnection.getResultFromDatabase("SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session"
-                          + " FROM student_info,student_status WHERE student_info.id = student_status.id "
-                          + "and student_status.status = 'current'" );
-            } else if (numberOfRow > 0) {
-                 result = CreateConnection.getResultFromDatabase("SELECT t.id,t.student_name,t.student_dept,t.student_session from "
-                         + "( SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session FROM student_info "
-                         + "INNER JOIN student_status on student_info.id = student_status.id "
-                         + "WHERE student_status.status='current') t LEFT JOIN "
-                         + "allocated on t.id = allocated.id WHERE allocated.id is null;");
-            }
-            return result;
-           // while(result.next()){
-           //     System.out.println("id = "+result.getInt(1) + " name = "+result.getString(2)+" dept = "+result.getString(3));
-           // }  
+        System.out.println("number of row = " + numberOfRow);
+        if (numberOfRow == 0) {
+            result = CreateConnection.getResultFromDatabase("SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session"
+                    + " FROM student_info,student_status WHERE student_info.id = student_status.id "
+                    + "and student_status.status = 'current'");
+        } else if (numberOfRow > 0) {
+            result = CreateConnection.getResultFromDatabase("SELECT t.id,t.student_name,t.student_dept,t.student_session from "
+                    + "( SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session FROM student_info "
+                    + "INNER JOIN student_status on student_info.id = student_status.id "
+                    + "WHERE student_status.status='current') t LEFT JOIN "
+                    + "allocated on t.id = allocated.id WHERE allocated.id is null;");
+        }
+        return result;
     }
-    
+
+    /**
+     * returns a session wise sorted random student list from (param result)
+     *
+     * @param result result set contain the list of unallocated student
+     * (id,name,dept,session)
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Student> getStudentArrayList(ResultSet result) throws SQLException {
         ArrayList<Student> studentList = new ArrayList<>();
-        while(result.next()){
-            Student student = new Student(result.getInt(1),result.getString("student_name"),result.getString("student_dept"),result.getInt("student_session"));
+        while (result.next()) {
+            Student student = new Student(result.getInt(1), result.getString("student_name"), result.getString("student_dept"), result.getInt("student_session"));
             studentList.add(student);
             System.out.println(student);
         }
+        long seed = 15435l;
+        seed = System.currentTimeMillis();
+        Collections.shuffle(studentList, new Random((int) seed));
+        Collections.sort(studentList, Student.studentSessionComparator);
+
         return studentList;
     }
+
+    public ArrayList<Room> getCurrentRoomInfoArrarList() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM current_rooms_info WHERE capacity>0";
+        ResultSet result = CreateConnection.getResultFromDatabase(query);
+        ArrayList<Room> roomList = new ArrayList<>();
+
+        while (result.next()) {
+            Room room = new Room(result.getInt("room_number"), result.getInt("capacity"));
+            roomList.add(room);
+            System.out.println(room);
+        }
+        return roomList;
+    }
+
+    public void allocateSeatsToStudents(ArrayList<Student> studentList, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
+        int totalFreeSeats = 0;
+        int totalAllocated = 0;
+
+        for (Room room : roomList) {
+            totalFreeSeats += room.getCapacity();
+        }
+        ArrayList<Student> studentGotRoom = new ArrayList<>();
+        int roomNumber = 0;
+        for (Student student : studentList) {
+               roomNumber = findOptimalSeatForStudent(student, roomList);
+               if(roomNumber==0) continue;
+               totalFreeSeats--;
+               totalAllocated++;
+               student.setRoom_number(roomNumber);
+        }
+        
+        if(totalFreeSeats>0){
+            for(Student student : studentList){
+                if(student.getRoom_number()>0) continue;
+                roomNumber = findNonOptimalSeatForStudent(student, roomList);
+                if(roomNumber==0) continue;
+                totalFreeSeats--;
+                totalAllocated++;
+                student.setRoom_number(roomNumber);
+                if(totalFreeSeats==0) break;
+            }
+        }
+        
+        for(Student student: studentList ) System.out.println(student);
+    }
     
+    public int findNonOptimalSeatForStudent(Student student,ArrayList<Room> roomList){
+        for(int i = 0;i<roomList.size();i++){
+            Room room = roomList.get(i);
+            if(room.getCapacity()>0) {
+                room.setCapacity(room.getCapacity() - 1);
+                return room.getRoomNumber();
+            }
+        }
+        return 0;
+    }
     
-    
+    public int findOptimalSeatForStudent(Student student, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
+        Room room = null;
+        
+        for (int i = 0; i < roomList.size(); i++) {
+            room = roomList.get(i);
+            if(room.getCapacity()<=0) continue;
+            ArrayList<Student> roomStudent = studentListOfARomm(room.getRoomNumber());
+            int sessionFlag = 1;
+            int sameDeptFlag = 1;
+            
+            HashMap mp = new HashMap();
+            mp.put(student.getStudent_dept(), 0);
+            for(Student st : roomStudent) {
+                if(Math.abs(st.getStudent_session() - student.getStudent_session()) > 1)
+                    sessionFlag = 0;
+                mp.put(st.getStudent_dept(), 0);
+            }
+            
+            for(Student st : roomStudent){
+                mp.put(st.getStudent_dept(), (int)mp.get(st.getStudent_dept()) + 1);
+            }
+            
+            for(Student st : roomStudent) System.out.println(st.getStudent_name() + " " + (int)mp.get(st.getStudent_dept()));
+            
+            if( (int) mp.get(student.getStudent_dept()) >= 2) sameDeptFlag = 0;
+            
+            if(sameDeptFlag == 1 && sessionFlag == 1){ 
+                room.setCapacity(room.getCapacity() - 1);
+                return room.getRoomNumber();
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<Student> studentListOfARomm(int RoomNumber) throws ClassNotFoundException, SQLException {
+        String query = "SELECT student_info.id , student_info.student_name, "
+                + "student_info.student_dept,student_info.student_session from student_info INNER JOIN \n"
+                + "allocated on allocated.id = student_info.id WHERE allocated.room_number = "+ RoomNumber;
+        ResultSet result = CreateConnection.getResultFromDatabase(query);
+        
+        ArrayList<Student> roomStudent = new ArrayList<>();
+        
+        while(result.next()){
+            Student student = new Student(result.getInt(1), result.getString("student_name"), 
+                    result.getString("student_dept"), result.getInt("student_session"));
+            student.setRoom_number(RoomNumber);
+            roomStudent.add(student);
+            System.out.println(student);
+        }
+        return roomStudent;
+    }
+
+
     private void addSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSingleStudentButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addSingleStudentButtonActionPerformed

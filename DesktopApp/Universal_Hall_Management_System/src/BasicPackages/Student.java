@@ -5,16 +5,27 @@
  */
 package BasicPackages;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Tahmid
  */
 public class Student {
-     private int id;
+
+    private int id;
     private String student_name;
-   
     private String student_dept;
     private int student_session;
+    private int room_number = 0;
+
+    public void setRoom_number(int room_number) {
+        this.room_number = room_number;
+    }
+
+    public int getRoom_number() {
+        return room_number;
+    }
 
     public Student(int id, String student_name, String student_dept, int student_session) {
         this.id = id;
@@ -23,10 +34,8 @@ public class Student {
         this.student_session = student_session;
     }
 
-   
-    
-    public Student(){
-        
+    public Student() {
+
     }
 
     public String getStudent_name() {
@@ -61,9 +70,21 @@ public class Student {
         this.student_session = student_session;
     }
 
+    public static Comparator<Student> studentSessionComparator = new Comparator<Student>() {
+
+        @Override
+        public int compare(Student o1, Student o2) {
+           //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return o1.student_session - o2.student_session;
+        }
+        
+    };
+
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", student_name=" + student_name + ", student_dept=" + student_dept + ", student_session=" + student_session + '}';
+        return "Student{" + "id=" + id + ", student_name=" + student_name + ", student_dept=" + student_dept + ", student_session=" + student_session + ", room_number=" + room_number + '}';
     }
+
     
+
 }

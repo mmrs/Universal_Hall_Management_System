@@ -157,7 +157,7 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
         if(flag==JOptionPane.YES_OPTION){
             updateHallInformation();
         }else {
-            
+            return;
         }
     }//GEN-LAST:event_confirmButtonActionPerformed
     
@@ -172,8 +172,12 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
             capacity = (int) roomInfo.getValueAt(i, 2);
             
             query = "insert into hall_info values(" + floor +"," + roomNumber+ ","+capacity+")";
+            
            // System.out.println(query);
             CreateConnection.insertDatatoDatabase(query); 
+            
+            query = "insert into current_rooms_info values(" + roomNumber + "," + capacity+")";
+            CreateConnection.insertDatatoDatabase(query);
         }
         
     }
