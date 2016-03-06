@@ -239,7 +239,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
         // TODO add your handling code here:
         
-        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,ttype) VALUES("+regNo+",1)");
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,`type`) VALUES("+regNo+",'OUT')");
         checkOutButton.setEnabled(false);
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
@@ -256,10 +256,10 @@ public class GateKeeperPanel extends javax.swing.JPanel {
             else 
                 studentName.setText("Student Not Found On DataBase");
             
-            resultSet = CreateConnection.getResultFromDatabase("select ttype from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
+            resultSet = CreateConnection.getResultFromDatabase("select `type` from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
             resultSet.next();
-            String type = resultSet.getString("ttype");
-            if(type.equals("0")){
+            String type = resultSet.getString("type");
+            if(type.equals("IN")){
                 checkInButton.setEnabled(false);
             }
             else checkOutButton.setEnabled(false);
@@ -275,7 +275,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
 
     private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInButtonActionPerformed
         // TODO add your handling code here:
-        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,ttype) VALUES("+regNo+",0)");
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id) VALUES("+regNo +")");
         checkInButton.setEnabled(false);
     }//GEN-LAST:event_checkInButtonActionPerformed
 

@@ -107,11 +107,15 @@ public class logInAuthentication extends HttpServlet {
             StaticData.password = request.getParameter("password");
             ResultSet rs = st.executeQuery("SELECT *from student_info INNER JOIN gardian_info ON( student_info.id = gardian_info.id) WHERE gardian_phone=" + StaticData.phone + "");
             StaticData.resultSet = rs;
+            if(!rs.next())
+                throw new Exception("User Not Found On DATABASE");
+               
             JsonWriter gsonWriter = new JsonWriter(pw);
             ResultSetMetaData metaData = rs.getMetaData();
             gsonWriter.beginObject();
             gsonWriter.name("info");
             gsonWriter.beginArray();
+            rs.previous();
             while (rs.next()) {
                 gsonWriter.beginObject();
                 for (int indx = 1; indx <= metaData.getColumnCount(); indx++) {
