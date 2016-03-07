@@ -48,7 +48,9 @@ public class TableModelGateKeeperViewEntry {
                 @Override
                 public boolean isCellEditable(int row, int col) {
                     // setting col 1 & col 2 editable, could be also set be by returning false  
-                    return false;
+                    if(col == 0)
+                    return true;
+                    else return false;
                 }
             };
         } catch (Exception e) {
