@@ -86,14 +86,15 @@ public class CheckHallStatus extends HttpServlet {
             StaticData.phone = request.getParameter("phone");
             StaticData.password = request.getParameter("password");
             StaticData.id = request.getParameter("id");
-            ResultSet rs = st.executeQuery("SELECT `type` from check_in_out where day_time = (select MAX(day_time) from check_in_out WHERE id =" + StaticData.id + ")");
+            ResultSet rs = st.executeQuery("SELECT * from check_in_out where day_time = (select MAX(day_time) from check_in_out WHERE id =" + StaticData.id + ")");
             JsonWriter gsonWriter = new JsonWriter(pw);
             ResultSetMetaData metaData = rs.getMetaData();
             if (rs.next()) {
                 gsonWriter.beginObject();
-                    gsonWriter.name(metaData.getColumnLabel(1));
-                    gsonWriter.value(rs.getString(1));
-                
+                for(int i=0;i<metaData.getColumnCount();i++){
+                    gsonWriter.name(metaData.getColumnLabel(i+1));
+                    gsonWriter.value(rs.getString(i+1));
+                }  
             }
             else throw new Exception("Student information Not Found");
             gsonWriter.name("status");

@@ -289,7 +289,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out ORDER BY DAY_TIME DESC");
-            logTable.setModel(DbUtils.resultSetToTableModel(resultSet));
+            logTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
         } catch (ClassNotFoundException ex) {
           //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

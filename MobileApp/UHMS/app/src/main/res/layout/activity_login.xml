@@ -47,10 +47,10 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:hint="11 digit mobile no"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF"
-                    android:inputType="textEmailAddress"
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:singleLine="true" />
 
