@@ -105,7 +105,7 @@ public class logInAuthentication extends HttpServlet {
             java.sql.Statement st = con.createStatement();
             StaticData.phone = request.getParameter("phone");
             StaticData.password = request.getParameter("password");
-            ResultSet rs = st.executeQuery("SELECT gardian_password from gardian_info where gardian_phone="
+            ResultSet rs = st.executeQuery("SELECT gardian_password from gardian_info where id="
                     +  StaticData.phone);
             if(rs.next()){
                 String pss = rs.getString(1);
@@ -114,7 +114,10 @@ public class logInAuthentication extends HttpServlet {
                 }
             }
             else throw new Exception("No User Found by this Phone No");
-            rs = st.executeQuery("SELECT *from student_info INNER JOIN gardian_info ON( student_info.id = gardian_info.id) WHERE gardian_phone=" + StaticData.phone + "");
+            rs = st.executeQuery("SELECT *from student_info a,gardian_info b,student_gardian_relation c"
+                    + " WHERE a.id=c.student_id AND b.id = c.gardian_id"
+                    + " AND b.id=" + StaticData.phone
+            );
             StaticData.resultSet = rs;
             if(!rs.next())
                 throw new Exception("User Not Found On DATABASE");
@@ -147,7 +150,7 @@ public class logInAuthentication extends HttpServlet {
             gsonWriter.name("status");
             gsonWriter.value("400");
             gsonWriter.name("error_desc");
-            gsonWriter.value(ex.toString());
+            gsonWriter.value(ex.getMessage());
             gsonWriter.endObject();
             gsonWriter.flush();
             gsonWriter.close();

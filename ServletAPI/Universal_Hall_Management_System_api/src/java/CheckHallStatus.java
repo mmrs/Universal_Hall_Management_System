@@ -109,7 +109,7 @@ public class CheckHallStatus extends HttpServlet {
             gsonWriter.name("status");
             gsonWriter.value("400");
             gsonWriter.name("error_desc");
-            gsonWriter.value(ex.toString());
+            gsonWriter.value(ex.getMessage());
             gsonWriter.endObject();
             gsonWriter.flush();
             gsonWriter.close();

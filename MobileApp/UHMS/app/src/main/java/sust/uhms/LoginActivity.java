@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                 for(int i=0;i<jsonArray.length();i++){
                                     jsonObject = jsonArray.getJSONObject(i);
                                     StudentInfo studentInfo = new StudentInfo();
-                                    studentInfo.setId(jsonObject.getInt("id"));
+                                    studentInfo.setId(jsonObject.getInt("student_id"));
                                     studentInfo.setName(jsonObject.getString("student_name"));
                                     studentInfo.setDept(jsonObject.getString("student_dept"));
                                     studentInfo.setSession(jsonObject.getString("student_session"));
@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+                mProgressView.setVisibility(View.GONE);
                 StaticData.showDialog(LoginActivity.this,error.toString());
 
 
