@@ -12,8 +12,9 @@ import java.util.ArrayList;
  */
 public class StaticData {
 
-    static String phone,password;
+    static String phone,password,ip;
     static ArrayList<StudentInfo> studentInfos = new ArrayList<>();
+    static int index;
 
 
 

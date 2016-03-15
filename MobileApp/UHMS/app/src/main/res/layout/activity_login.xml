@@ -20,6 +20,13 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ip"
+        android:layout_gravity="center_horizontal"
+        android:text="192.168.0.101:8080" />
+
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"

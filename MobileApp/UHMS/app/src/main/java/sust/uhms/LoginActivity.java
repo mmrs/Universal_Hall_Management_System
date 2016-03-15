@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 StaticData.phone = phone;
                 StaticData.password = password;
+                StaticData.ip = ((EditText)findViewById(R.id.ip)).getText().toString();
                 mPasswordView.setText("");
                 mProgressView.setVisibility(View.VISIBLE);
                 attempLogIn(phone, password);
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void attempLogIn(final String phone, final String password) {
 
-      StringRequest str = new StringRequest(Request.Method.POST, getString(R.string.server_address) + "logInAuthentication",
+      StringRequest str = new StringRequest(Request.Method.POST, "http://"+StaticData.ip+getString(R.string.server_address) + "logInAuthentication",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
