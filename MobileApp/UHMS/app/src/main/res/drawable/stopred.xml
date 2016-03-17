@@ -6,8 +6,8 @@
                 android:height="50dp"
                 android:width="50dp" />
             <corners android:radius="2dip" />
-            <stroke android:width="2dip" android:color="#f5f1f0" />
-            <gradient android:angle="270" android:startColor="#bf5154" android:endColor="#e95f79"  />
+            <stroke android:width="1dip" android:color="#f5f1f0" />
+            <gradient android:angle="270" android:startColor="#d2ca6c" android:endColor="#efed71"  />
         </shape>
     </item>
     <item android:state_focused="true">
