@@ -5,9 +5,16 @@
  */
 package AdminTabPackages;
 
+import AdminTabPackages.studentManagementPackage.AddSingleStudentFrame;
+import AdminTabPackages.studentManagementPackage.RemoveCompleteSession;
+import AdminTabPackages.studentManagementPackage.RemoveSingleStudent;
+import AdminTabPackages.studentManagementPackage.ViewStudentWhoGotSeat;
 import BasicPackages.Room;
 import BasicPackages.Student;
+import QueryPackage.BasicQuery;
 import dbconnection.CreateConnection;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +25,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -79,36 +87,43 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(188, 188, 188)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addStudentFromDatabaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeStudentCompletSeason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removeSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(removeStudentCompletSeason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(276, Short.MAX_VALUE))
+                    .addComponent(addSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(61, 61, 61)
                 .addComponent(addStudentFromDatabaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addSingleStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeSingleStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeStudentCompletSeason, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentFromDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentFromDatabaseButtonActionPerformed
         try {
 
-            ResultSet reuslt = getUnallocatedStudentResultSet();
+            ResultSet reuslt = BasicQuery.getUnallocatedStudentResultSet();
             ArrayList<Student> studentList = getStudentArrayList(reuslt);
+            if (studentList.size() == 0) {
+                JOptionPane.showMessageDialog(this, "There is no student who dose not has a seat in this hall");
+                return;
+            }
             ArrayList<Room> room_list = getCurrentRoomInfoArrarList();
-                allocateSeatsToStudents(studentList, room_list);
+            ArrayList<Student> studentsGotRoom = allocateSeatsToStudents(studentList, room_list);
+            //executeAllocationQuery(studentsGotRoom);
+            viewStudentWhoGotSeat(studentsGotRoom);
+
         } catch (SQLException ex) {
             Logger.getLogger(StudentManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -116,31 +131,18 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addStudentFromDatabaseButtonActionPerformed
 
-    public ResultSet getUnallocatedStudentResultSet() throws SQLException, ClassNotFoundException {
-        ResultSet result = null;
-        result = CreateConnection.getResultFromDatabase("SELECT COUNT(id) as count FROM allocated");
+    public void viewStudentWhoGotSeat(ArrayList<Student> studentsGotRoom) {
 
-        int numberOfRow = 0;
-        System.out.println(result);
-
-        if (result.next()) {
-            numberOfRow = result.getInt("count");
-        }
-
-        System.out.println("number of row = " + numberOfRow);
-        if (numberOfRow == 0) {
-            result = CreateConnection.getResultFromDatabase("SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session"
-                    + " FROM student_info,student_status WHERE student_info.id = student_status.id "
-                    + "and student_status.status = 'current'");
-        } else if (numberOfRow > 0) {
-            result = CreateConnection.getResultFromDatabase("SELECT t.id,t.student_name,t.student_dept,t.student_session from "
-                    + "( SELECT student_info.id , student_info.student_name,student_info.student_dept,student_info.student_session FROM student_info "
-                    + "INNER JOIN student_status on student_info.id = student_status.id "
-                    + "WHERE student_status.status='current') t LEFT JOIN "
-                    + "allocated on t.id = allocated.id WHERE allocated.id is null;");
-        }
-        return result;
+        ViewStudentWhoGotSeat frame = new ViewStudentWhoGotSeat(studentsGotRoom);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+        int y = 100;
+        frame.setLocation(x, y);
     }
+
+    
 
     /**
      * returns a session wise sorted random student list from (param result)
@@ -178,7 +180,7 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         return roomList;
     }
 
-    public void allocateSeatsToStudents(ArrayList<Student> studentList, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
+    public ArrayList<Student> allocateSeatsToStudents(ArrayList<Student> studentList, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
         int totalFreeSeats = 0;
         int totalAllocated = 0;
 
@@ -188,66 +190,47 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         ArrayList<Student> studentGotRoom = new ArrayList<>();
         int roomNumber = 0;
         for (Student student : studentList) {
-               roomNumber = findOptimalSeatForStudent(student, roomList);
-               if(roomNumber==0) continue;
-               totalFreeSeats--;
-               totalAllocated++;
-               student.setRoom_number(roomNumber);
+            roomNumber = findOptimalSeatForStudent(student, roomList);
+            if (roomNumber == 0) {
+                continue;
+            }
+            totalFreeSeats--;
+            totalAllocated++;
+            student.setRoom_number(roomNumber);
+            studentGotRoom.add(student);
+            BasicQuery.allocateASeatToStudent(student);
         }
-        
-        if(totalFreeSeats>0){
-            for(Student student : studentList){
-                if(student.getRoom_number()>0) continue;
+
+        if (totalFreeSeats > 0 && studentGotRoom.size() < studentList.size()) {
+            for (Student student : studentList) {
+                if (student.getRoom_number() > 0) {
+                    continue;
+                }
                 roomNumber = findNonOptimalSeatForStudent(student, roomList);
-                if(roomNumber==0) continue;
+                if (roomNumber == 0) {
+                    continue;
+                }
                 totalFreeSeats--;
                 totalAllocated++;
                 student.setRoom_number(roomNumber);
-                if(totalFreeSeats==0) break;
+                studentGotRoom.add(student);
+                BasicQuery.allocateASeatToStudent(student);
+                if (totalFreeSeats == 0) {
+                    break;
+                }
             }
         }
-        
-        for(Student student: studentList ) System.out.println(student);
-    }
-    
-    public int findNonOptimalSeatForStudent(Student student,ArrayList<Room> roomList){
-        for(int i = 0;i<roomList.size();i++){
-            Room room = roomList.get(i);
-            if(room.getCapacity()>0) {
-                room.setCapacity(room.getCapacity() - 1);
-                return room.getRoomNumber();
-            }
+
+        for (Student student : studentList) {
+            System.out.println(student);
         }
-        return 0;
+        return studentGotRoom;
     }
-    
-    public int findOptimalSeatForStudent(Student student, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
-        Room room = null;
-        
+
+    public int findNonOptimalSeatForStudent(Student student, ArrayList<Room> roomList) {
         for (int i = 0; i < roomList.size(); i++) {
-            room = roomList.get(i);
-            if(room.getCapacity()<=0) continue;
-            ArrayList<Student> roomStudent = studentListOfARomm(room.getRoomNumber());
-            int sessionFlag = 1;
-            int sameDeptFlag = 1;
-            
-            HashMap mp = new HashMap();
-            mp.put(student.getStudent_dept(), 0);
-            for(Student st : roomStudent) {
-                if(Math.abs(st.getStudent_session() - student.getStudent_session()) > 1)
-                    sessionFlag = 0;
-                mp.put(st.getStudent_dept(), 0);
-            }
-            
-            for(Student st : roomStudent){
-                mp.put(st.getStudent_dept(), (int)mp.get(st.getStudent_dept()) + 1);
-            }
-            
-            for(Student st : roomStudent) System.out.println(st.getStudent_name() + " " + (int)mp.get(st.getStudent_dept()));
-            
-            if( (int) mp.get(student.getStudent_dept()) >= 2) sameDeptFlag = 0;
-            
-            if(sameDeptFlag == 1 && sessionFlag == 1){ 
+            Room room = roomList.get(i);
+            if (room.getCapacity() > 0) {
                 room.setCapacity(room.getCapacity() - 1);
                 return room.getRoomNumber();
             }
@@ -255,16 +238,58 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         return 0;
     }
 
+    public int findOptimalSeatForStudent(Student student, ArrayList<Room> roomList) throws ClassNotFoundException, SQLException {
+        Room room = null;
+
+        for (int i = 0; i < roomList.size(); i++) {
+            room = roomList.get(i);
+            if (room.getCapacity() <= 0) {
+                continue;
+            }
+            ArrayList<Student> roomStudent = studentListOfARomm(room.getRoomNumber());
+            int sessionFlag = 1;
+            int sameDeptFlag = 1;
+            HashMap mp = new HashMap();
+            mp.put(student.getStudent_dept(), 0);
+            for (Student st : roomStudent) {
+                if (Math.abs(st.getStudent_session() - student.getStudent_session()) > 1) {
+                    sessionFlag = 0;
+                }
+                mp.put(st.getStudent_dept(), 0);
+            }
+
+            for (Student st : roomStudent) {
+                mp.put(st.getStudent_dept(), (int) mp.get(st.getStudent_dept()) + 1);
+            }
+
+            for (Student st : roomStudent) {
+                System.out.println(st.getStudent_name() + " " + (int) mp.get(st.getStudent_dept()));
+            }
+
+            if ((int) mp.get(student.getStudent_dept()) >= 2) {
+                sameDeptFlag = 0;
+            }
+            System.out.println(sameDeptFlag + " " + sessionFlag);
+            if (sameDeptFlag == 1 && sessionFlag == 1) {
+                room.setCapacity(room.getCapacity() - 1);
+                return room.getRoomNumber();
+            }
+
+        }
+
+        return 0;
+    }
+
     public ArrayList<Student> studentListOfARomm(int RoomNumber) throws ClassNotFoundException, SQLException {
         String query = "SELECT student_info.id , student_info.student_name, "
                 + "student_info.student_dept,student_info.student_session from student_info INNER JOIN \n"
-                + "allocated on allocated.id = student_info.id WHERE allocated.room_number = "+ RoomNumber;
+                + "allocated on allocated.id = student_info.id WHERE allocated.room_number = " + RoomNumber;
         ResultSet result = CreateConnection.getResultFromDatabase(query);
-        
+
         ArrayList<Student> roomStudent = new ArrayList<>();
-        
-        while(result.next()){
-            Student student = new Student(result.getInt(1), result.getString("student_name"), 
+
+        while (result.next()) {
+            Student student = new Student(result.getInt(1), result.getString("student_name"),
                     result.getString("student_dept"), result.getInt("student_session"));
             student.setRoom_number(RoomNumber);
             roomStudent.add(student);
@@ -273,17 +298,30 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         return roomStudent;
     }
 
+    
+
 
     private void addSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSingleStudentButtonActionPerformed
         // TODO add your handling code here:
+
+        new AddSingleStudentFrame().setVisible(true);
     }//GEN-LAST:event_addSingleStudentButtonActionPerformed
 
     private void removeSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeSingleStudentButtonActionPerformed
         // TODO add your handling code here:
+        RemoveSingleStudent frame = new RemoveSingleStudent();
+        frame.setVisible(true);
+        frame.setResizable(false);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+        int y = 100;
+        frame.setLocation(x, y);
     }//GEN-LAST:event_removeSingleStudentButtonActionPerformed
 
     private void removeStudentCompletSeasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentCompletSeasonActionPerformed
         // TODO add your handling code here:
+        RemoveCompleteSession frame = new RemoveCompleteSession();
+        frame.setVisible(true);
     }//GEN-LAST:event_removeStudentCompletSeasonActionPerformed
 
 

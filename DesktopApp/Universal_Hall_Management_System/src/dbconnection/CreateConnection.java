@@ -47,10 +47,8 @@ public class CreateConnection {
             st.execute(query);
             System.out.println("connection established successfully...!!\n");
         }
-        catch(ClassNotFoundException | SQLException e) {
-            
+        catch(ClassNotFoundException | SQLException e) {   
             System.out.println(e);
         }
-
     }
 }

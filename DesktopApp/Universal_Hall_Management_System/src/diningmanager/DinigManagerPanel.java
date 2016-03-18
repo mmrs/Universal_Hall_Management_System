@@ -58,7 +58,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         regNoTextField = new javax.swing.JTextField();
-        mealTypeOptions = new javax.swing.JComboBox<>();
+        mealTypeOptions = new javax.swing.JComboBox<String>();
         mealQuantity = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -119,7 +119,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
             }
         });
 
-        mealTypeOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BREAKFAST", "LUNCH", "DINNER" }));
+        mealTypeOptions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BREAKFAST", "LUNCH", "DINNER" }));
         mealTypeOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mealTypeOptionsActionPerformed(evt);
@@ -306,13 +306,13 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                                     .addComponent(quantity3)
                                     .addComponent(quantity2)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
+                        .addGap(156, 156, 156)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                                 .addComponent(jSeparator2)))))
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

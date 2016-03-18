@@ -6,6 +6,7 @@
 package allpanels;
 
 import AdminTabPackages.HallInformationPanel;
+import AdminTabPackages.MealManagementPanel;
 import AdminTabPackages.StudentManagementPanel;
 import java.awt.CardLayout;
 
@@ -21,9 +22,10 @@ public class AdminPanel extends javax.swing.JPanel {
     MainFrame parentFrame = null;
     HallInformationPanel hallInformationPanel = new HallInformationPanel();
     StudentManagementPanel studentManagementPanel = new StudentManagementPanel();
+    MealManagementPanel mealManagementPanel = new MealManagementPanel();
     CardLayout cardLayoutForHallInformationTab = new CardLayout();
     CardLayout cardLayoutForStudentManagementTab = new CardLayout();
-    
+    CardLayout cardLayoutForMealManagementTab = new CardLayout();
     public AdminPanel() {
         initComponents();
     }
@@ -38,6 +40,12 @@ public class AdminPanel extends javax.swing.JPanel {
         this.parentFrame = parent;
         setHallInformationTab();
         setStudentManagementTab();
+        setMealManagementTab();
+    }
+    void setMealManagementTab(){
+        jPanel1.setLayout(cardLayoutForMealManagementTab);
+        jPanel1.add("MealManagementPanel",mealManagementPanel);
+        cardLayoutForMealManagementTab.show(jPanel1, "MealManagementPanel");
     }
     void setStudentManagementTab(){
         studentManagementPanelContainer.setLayout(cardLayoutForStudentManagementTab);
@@ -60,41 +68,16 @@ public class AdminPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         mainAdminTabPanel = new javax.swing.JTabbedPane();
-        mealManagementTabPanel = new javax.swing.JPanel();
-        checkInCheckOutTabPanel = new javax.swing.JPanel();
         studentManagementTabPanel = new javax.swing.JPanel();
         studentManagementPanelContainer = new javax.swing.JPanel();
-        adminOptionsTabPanel = new javax.swing.JPanel();
+        mealManagementTabPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         hallInformationTabPanel = new javax.swing.JPanel();
         hallInformationPanelContainer = new javax.swing.JPanel();
+        adminOptionsTabPanel = new javax.swing.JPanel();
+        checkInCheckOutTabPanel = new javax.swing.JPanel();
         adminInformationLabel = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
-
-        javax.swing.GroupLayout mealManagementTabPanelLayout = new javax.swing.GroupLayout(mealManagementTabPanel);
-        mealManagementTabPanel.setLayout(mealManagementTabPanelLayout);
-        mealManagementTabPanelLayout.setHorizontalGroup(
-            mealManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
-        );
-        mealManagementTabPanelLayout.setVerticalGroup(
-            mealManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
-        );
-
-        mainAdminTabPanel.addTab("Meal Management", mealManagementTabPanel);
-
-        javax.swing.GroupLayout checkInCheckOutTabPanelLayout = new javax.swing.GroupLayout(checkInCheckOutTabPanel);
-        checkInCheckOutTabPanel.setLayout(checkInCheckOutTabPanelLayout);
-        checkInCheckOutTabPanelLayout.setHorizontalGroup(
-            checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
-        );
-        checkInCheckOutTabPanelLayout.setVerticalGroup(
-            checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
-        );
-
-        mainAdminTabPanel.addTab("Check in Check out", checkInCheckOutTabPanel);
 
         javax.swing.GroupLayout studentManagementPanelContainerLayout = new javax.swing.GroupLayout(studentManagementPanelContainer);
         studentManagementPanelContainer.setLayout(studentManagementPanelContainerLayout);
@@ -104,7 +87,7 @@ public class AdminPanel extends javax.swing.JPanel {
         );
         studentManagementPanelContainerLayout.setVerticalGroup(
             studentManagementPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout studentManagementTabPanelLayout = new javax.swing.GroupLayout(studentManagementTabPanel);
@@ -117,23 +100,36 @@ public class AdminPanel extends javax.swing.JPanel {
             studentManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(studentManagementTabPanelLayout.createSequentialGroup()
                 .addComponent(studentManagementPanelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 101, Short.MAX_VALUE))
+                .addGap(0, 74, Short.MAX_VALUE))
         );
 
         mainAdminTabPanel.addTab("Student Management", studentManagementTabPanel);
 
-        javax.swing.GroupLayout adminOptionsTabPanelLayout = new javax.swing.GroupLayout(adminOptionsTabPanel);
-        adminOptionsTabPanel.setLayout(adminOptionsTabPanelLayout);
-        adminOptionsTabPanelLayout.setHorizontalGroup(
-            adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 692, Short.MAX_VALUE)
         );
-        adminOptionsTabPanelLayout.setVerticalGroup(
-            adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 313, Short.MAX_VALUE)
         );
 
-        mainAdminTabPanel.addTab("Admin Options", adminOptionsTabPanel);
+        javax.swing.GroupLayout mealManagementTabPanelLayout = new javax.swing.GroupLayout(mealManagementTabPanel);
+        mealManagementTabPanel.setLayout(mealManagementTabPanelLayout);
+        mealManagementTabPanelLayout.setHorizontalGroup(
+            mealManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        mealManagementTabPanelLayout.setVerticalGroup(
+            mealManagementTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mealManagementTabPanelLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 77, Short.MAX_VALUE))
+        );
+
+        mainAdminTabPanel.addTab("Meal Management", mealManagementTabPanel);
 
         javax.swing.GroupLayout hallInformationPanelContainerLayout = new javax.swing.GroupLayout(hallInformationPanelContainer);
         hallInformationPanelContainer.setLayout(hallInformationPanelContainerLayout);
@@ -160,6 +156,32 @@ public class AdminPanel extends javax.swing.JPanel {
         );
 
         mainAdminTabPanel.addTab("Hall Information", hallInformationTabPanel);
+
+        javax.swing.GroupLayout adminOptionsTabPanelLayout = new javax.swing.GroupLayout(adminOptionsTabPanel);
+        adminOptionsTabPanel.setLayout(adminOptionsTabPanelLayout);
+        adminOptionsTabPanelLayout.setHorizontalGroup(
+            adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        adminOptionsTabPanelLayout.setVerticalGroup(
+            adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+
+        mainAdminTabPanel.addTab("Admin Options", adminOptionsTabPanel);
+
+        javax.swing.GroupLayout checkInCheckOutTabPanelLayout = new javax.swing.GroupLayout(checkInCheckOutTabPanel);
+        checkInCheckOutTabPanel.setLayout(checkInCheckOutTabPanelLayout);
+        checkInCheckOutTabPanelLayout.setHorizontalGroup(
+            checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        checkInCheckOutTabPanelLayout.setVerticalGroup(
+            checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+
+        mainAdminTabPanel.addTab("Check in Check out", checkInCheckOutTabPanel);
 
         adminInformationLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         adminInformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -211,6 +233,7 @@ public class AdminPanel extends javax.swing.JPanel {
     private javax.swing.JPanel checkInCheckOutTabPanel;
     private javax.swing.JPanel hallInformationPanelContainer;
     private javax.swing.JPanel hallInformationTabPanel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logOutButton;
     private javax.swing.JTabbedPane mainAdminTabPanel;
     private javax.swing.JPanel mealManagementTabPanel;

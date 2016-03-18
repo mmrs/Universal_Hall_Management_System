@@ -24,6 +24,7 @@ public class HallInformationInputFrame extends javax.swing.JFrame {
      * Creates new form HallInformationInputFrame
      */
     public HallInformationInputFrame() {
+        super("Add Hall Infromation");
         initComponents();
         confirmButton.setVisible(false);
         readyCardLayout();
