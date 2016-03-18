@@ -91,7 +91,6 @@ public class TableModelGateKeeperViewEntry {
             return rows;
         } catch (Exception e) {
             e.printStackTrace();
-
             return null;
         }
     }

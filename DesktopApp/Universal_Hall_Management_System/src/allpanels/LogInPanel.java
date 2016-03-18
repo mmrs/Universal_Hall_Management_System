@@ -63,6 +63,11 @@ public class LogInPanel extends javax.swing.JPanel {
         userNameTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         passwordTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordTextFieldActionPerformed(evt);
+            }
+        });
 
         logInButton.setBackground(new java.awt.Color(51, 255, 51));
         logInButton.setText("Login");
@@ -121,8 +126,21 @@ public class LogInPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_logInButtonActionPerformed
+
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
+        // TODO add your handling code here:
+        String userName = userNameTextField.getText().trim();
+        String password = new String(passwordTextField.getPassword());
+        passwordTextField.setText("");
+        try {
+            logInFunction(userName, password);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
 
     private void logInFunction(String userName, String password) throws ClassNotFoundException, SQLException {
         String userType = null;

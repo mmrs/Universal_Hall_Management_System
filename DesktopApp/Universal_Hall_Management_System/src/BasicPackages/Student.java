@@ -19,12 +19,12 @@ public class Student {
     private int student_session;
     private int room_number = 0;
 
-    public void setRoom_number(int room_number) {
+    public Student(int id, String student_name, String student_dept, int student_session, int room_number) {
+        this.id = id;
+        this.student_name = student_name;
+        this.student_dept = student_dept;
+        this.student_session = student_session;
         this.room_number = room_number;
-    }
-
-    public int getRoom_number() {
-        return room_number;
     }
 
     public Student(int id, String student_name, String student_dept, int student_session) {
@@ -36,6 +36,14 @@ public class Student {
 
     public Student() {
 
+    }
+
+    public void setRoom_number(int room_number) {
+        this.room_number = room_number;
+    }
+
+    public int getRoom_number() {
+        return room_number;
     }
 
     public String getStudent_name() {
@@ -74,17 +82,15 @@ public class Student {
 
         @Override
         public int compare(Student o1, Student o2) {
-           //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             return o1.student_session - o2.student_session;
         }
-        
+
     };
 
     @Override
     public String toString() {
         return "Student{" + "id=" + id + ", student_name=" + student_name + ", student_dept=" + student_dept + ", student_session=" + student_session + ", room_number=" + room_number + '}';
     }
-
-    
 
 }
