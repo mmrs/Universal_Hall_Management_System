@@ -52,7 +52,7 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 StaticData.index = position;
-                activity.startActivity(new Intent(activity,StatusDetails.class));
+                activity.startActivity(new Intent(activity, StatusDetails.class));
 
             }
         });

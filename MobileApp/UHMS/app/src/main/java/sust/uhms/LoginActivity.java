@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -64,7 +65,10 @@ public class LoginActivity extends AppCompatActivity {
                 String password = mPasswordView.getText().toString();
                 if(phone.isEmpty() || password.isEmpty()){
 
-                    Toast.makeText(LoginActivity.this,"Check Phone Number or Password",Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(LoginActivity.this,"Check username or password",Toast.LENGTH_SHORT);
+                    toast.setGravity(BIND_ABOVE_CLIENT, -0, -100);
+                    toast.setText("check phone no or password");
+                    toast.show();
                     return;
                 }
 

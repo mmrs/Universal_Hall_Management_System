@@ -48,20 +48,19 @@ public class StatusDetails extends AppCompatActivity {
                                 JSONObject jsonObject1 = new JSONObject(response);
                                 StudentInfo studentInfo = StaticData.studentInfos.get(StaticData.index);
 
-                                textView.setText("Student Name : " + studentInfo.getName() +"\n"
-                                 + "Reg No :" + studentInfo.getId() + "\n"
-                                 + "Hall Status : " + jsonObject.getString("type") + "\n"
-                                 + "Last Timestamp : " + jsonObject.getString("day_time") +"\n\n"
+                                textView.setText("Student Name : \n" + studentInfo.getName() +"\n\n"
+                                 + "Reg No :\n" + studentInfo.getId() + "\n\n"
+                                 + "Hall Status :   " + jsonObject.getString("type") + "\n\n"
+                                 + "Last Timestamp : \n" + jsonObject.getString("day_time") +"\n\n"
                                  + "current month meal quantity" + "\n"
-                                 + "-------------------------------------------------------------------------" + "\n"
-                                 +"BREAKFAST : " + jsonObject.getString("BREAKFAST") + "\n"
-                                 +"LUNCH : " + jsonObject.getString("LUNCH") + "\n"
-                                 +"DINNER : " + jsonObject.getString("DINNER") + "\n"
+                                 +"BREAKFAST :  " + jsonObject.getString("BREAKFAST") + "\n"
+                                 +"LUNCH     :  " + jsonObject.getString("LUNCH") + "\n"
+                                 +"DINNER    :  " + jsonObject.getString("DINNER") + "\n"
 
                                 );
 
                             }
-                            else if(status.equals("400")){
+                            else if(status.equals("400")) {
 
                                 StaticData.showDialog(StatusDetails.this,jsonObject.getString("error_desc"));
 
