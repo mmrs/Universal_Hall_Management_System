@@ -42,11 +42,9 @@ public class ListViewAdapter extends BaseAdapter {
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView regno = (TextView) convertView.findViewById(R.id.regno);
         TextView dept = (TextView) convertView.findViewById(R.id.dept);
-        TextView session = (TextView) convertView.findViewById(R.id.session);
         name.setText("Name : " +(StaticData.studentInfos.get(position)).getName());
         regno.setText("Reg No : " +(StaticData.studentInfos.get(position)).getId() + "");
         dept.setText("Dept. : " +(StaticData.studentInfos.get(position)).getDept());
-        session.setText("Session : " +(StaticData.studentInfos.get(position)).getSession());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

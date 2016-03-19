@@ -20,17 +20,18 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.widget.TextView;
+import  android.widget.LinearLayout;
 
 public class StatusDetails extends AppCompatActivity {
 
-    TextView textView;
+    LinearLayout linearstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status_details);
-        textView = (TextView) findViewById(R.id.status);
+        linearstatus = (LinearLayout) findViewById(R.id.linear2);
         getStatus();
-
     }
 
     private void getStatus() {
@@ -45,19 +46,30 @@ public class StatusDetails extends AppCompatActivity {
                             String status = jsonObject.getString("status");
                             if(status.equals("200")){
 
-                                JSONObject jsonObject1 = new JSONObject(response);
+
+
+                                if(jsonObject.getString("type").equals("OUT")){
+
+                                    linearstatus.setBackgroundDrawable(getDrawable(R.drawable.red));
+
+                                }
+
                                 StudentInfo studentInfo = StaticData.studentInfos.get(StaticData.index);
+                                ((TextView)findViewById(R.id.name)).setText("student name : "+studentInfo.getName());
+                                ((TextView)findViewById(R.id.regno)).setText("reg. no : "+studentInfo.getId() +"");
+                                ((TextView)findViewById(R.id.session)).setText("session : "+studentInfo.getSession());
+                                ((TextView)findViewById(R.id.dept)).setText("dept. : "+studentInfo.getDept());
+                                ((TextView)findViewById(R.id.gardiannmae)).setText("gardian name : "+studentInfo.getGardianname());
+                                ((TextView)findViewById(R.id.relation)).setText("gardian relation : "+studentInfo.getGardianrekation());
 
-                                textView.setText("Student Name : \n" + studentInfo.getName() +"\n\n"
-                                 + "Reg No :\n" + studentInfo.getId() + "\n\n"
-                                 + "Hall Status :   " + jsonObject.getString("type") + "\n\n"
-                                 + "Last Timestamp : \n" + jsonObject.getString("day_time") +"\n\n"
-                                 + "current month meal quantity" + "\n"
-                                 +"BREAKFAST :  " + jsonObject.getString("BREAKFAST") + "\n"
-                                 +"LUNCH     :  " + jsonObject.getString("LUNCH") + "\n"
-                                 +"DINNER    :  " + jsonObject.getString("DINNER") + "\n"
 
-                                );
+                                ((TextView)findViewById(R.id.hallstatus)).setText(jsonObject.getString("type"));
+
+
+                                ((TextView)findViewById(R.id.breakfast)).setText("BREAKFAST : "+jsonObject.getString("BREAKFAST"));
+                                ((TextView)findViewById(R.id.lunch)).setText("LUNCH : "+jsonObject.getString("LUNCH"));
+                                ((TextView)findViewById(R.id.dinner)).setText("DINNER : " +jsonObject.getString("DINNER"));
+
 
                             }
                             else if(status.equals("400")) {
@@ -70,7 +82,6 @@ public class StatusDetails extends AppCompatActivity {
                             Log.i("mmrs",e.toString());
 
                         }
-
 
                     }
                 }, new Response.ErrorListener() {

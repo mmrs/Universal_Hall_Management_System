@@ -5,7 +5,7 @@ package sust.uhms;
  */
 public class StudentInfo {
 
-    String name,dept,session;
+    String name,dept,session,gardianname,gardianrekation;
     int id;
 
     public int getId() {
@@ -38,5 +38,21 @@ public class StudentInfo {
 
     public void setSession(String session) {
         this.session = session;
+    }
+
+    public String getGardianname() {
+        return gardianname;
+    }
+
+    public void setGardianname(String gardianname) {
+        this.gardianname = gardianname;
+    }
+
+    public String getGardianrekation() {
+        return gardianrekation;
+    }
+
+    public void setGardianrekation(String gardianrekation) {
+        this.gardianrekation = gardianrekation;
     }
 }

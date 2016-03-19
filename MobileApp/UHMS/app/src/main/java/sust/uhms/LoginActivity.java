@@ -110,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                                     studentInfo.setName(jsonObject.getString("student_name"));
                                     studentInfo.setDept(jsonObject.getString("student_dept"));
                                     studentInfo.setSession(jsonObject.getString("student_session"));
+                                    studentInfo.setGardianname(jsonObject.getString("gardian_name"));
+                                    studentInfo.setGardianrekation(jsonObject.getString("relation"));
                                     StaticData.studentInfos.add(studentInfo);
                                 }
 

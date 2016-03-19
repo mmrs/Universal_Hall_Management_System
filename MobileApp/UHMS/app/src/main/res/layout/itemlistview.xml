@@ -3,16 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:layout_marginBottom="26dp">
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:background="#d1bbbc"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp">
+    android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +17,7 @@
                 android:text="name"
                 android:id="@+id/name"
                 android:textColor="#000000"
-                android:textSize="22dp"
+                android:textSize="20sp"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -34,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="regno"
                 android:id="@+id/regno"
-                android:textSize="19dp"
+                android:textSize="17sp"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -42,18 +33,8 @@
                 android:text="dept"
                 android:textColor="#000000"
                 android:id="@+id/dept"
-                android:textSize="19dp"
+                android:textSize="17sp"
                 />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="session"
-                android:textColor="#000000"
-                android:id="@+id/session"
-                android:textSize="19dp"></TextView>
 
         </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
 </LinearLayout>

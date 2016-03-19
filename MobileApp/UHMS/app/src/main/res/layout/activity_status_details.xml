@@ -10,13 +10,134 @@
     android:background="@color/colorPrimaryDark"
     tools:context="sust.uhms.StatusDetails">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/status"
-        android:textSize="19sp"
-        android:textColor="#fdf980">
-    </TextView>
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/linear1"
+                    android:background="@drawable/yellow"
+                    android:layout_marginBottom="10dp"
+                    >
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text="Student Info"
+                        android:id="@+id/t1">
+                    </TextView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginBottom="8dp"></View>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/name">
+
+                    </TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/regno">
+                    </TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/dept"
+                        >
+                    </TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/session"
+                        >
+                    </TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/gardiannmae"
+                        >
+                    </TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/relation"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/linear2"
+                    android:background="@drawable/green"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:textColor="#ffffff"
+                        android:text="Hall Status"></TextView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginBottom="8dp"></View>
+
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:id="@+id/hallstatus"
+                        android:textColor="#ffffff"
+                        android:text=""></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/linear3"
+                    android:background="@drawable/blue">
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text="Meal Status"></TextView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginBottom="8dp"></View>
+
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/breakfast"
+                        ></TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/lunch"
+                        ></TextView>
+                    <TextView
+                        style="@style/myTextStyle"
+                        android:text=""
+                        android:id="@+id/dinner"
+                        ></TextView>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
