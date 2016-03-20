@@ -5,10 +5,13 @@
  */
 package AdminTabPackages.mealManagementPackage;
 
+import BasicPackages.MealDue;
 import QueryPackage.BasicQuery;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,8 +49,6 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        yearChooser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Year");
@@ -63,6 +64,11 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
 
         mealRateTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         mealRateTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        mealRateTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mealRateTextFieldActionPerformed(evt);
+            }
+        });
 
         generateButton.setText("Generate");
         generateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -154,12 +160,16 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
 
     private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
         // TODO add your handling code here:
+        generateButtonFunction();
+    }//GEN-LAST:event_generateButtonActionPerformed
+    
+    public void generateButtonFunction(){
         mealRate = Integer.parseInt(mealRateTextField.getText().trim());
         year = yearChooser.getYear();
         month = monthChooser.getMonth();
         try {
             BasicQuery.setMealRate(mealRate, year, month);
-            
+            generateTable(mealRate, year, month);
             
             
         } catch (SQLException ex) {
@@ -167,8 +177,21 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_generateButtonActionPerformed
-
+    }
+    
+    private void mealRateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mealRateTextFieldActionPerformed
+        // TODO add your handling code here:
+        generateButtonFunction();
+    }//GEN-LAST:event_mealRateTextFieldActionPerformed
+    
+    public void generateTable(int mealRate,int year,int month) throws ClassNotFoundException, SQLException{
+        ArrayList<MealDue> mealDue = BasicQuery.getTotalMealDataOfAMonth(year, month);
+        DefaultTableModel model = (DefaultTableModel) dueTable.getModel();
+        model.setRowCount(0);
+        for(MealDue md : mealDue){
+            model.addRow(new Object[]{md.getId(),md.getTotal(),""+year+"-"+month,md.getTotal()*mealRate});
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dueTable;

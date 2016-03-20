@@ -5,6 +5,7 @@
  */
 package QueryPackage;
 
+import BasicPackages.MealDue;
 import BasicPackages.Student;
 import dbconnection.CreateConnection;
 import java.sql.ResultSet;
@@ -167,36 +168,27 @@ public class BasicQuery {
     }
 
     public static void setMealRate(int rate, int year, int month) throws SQLException, ClassNotFoundException {
-        Calendar calendar = Calendar.getInstance();
-        System.out.println(calendar);
-        Timestamp current = new Timestamp(calendar.getTimeInMillis());
-        calendar.set(year,month,1,0,0,0);
-         
-        Timestamp yearMonth = new Timestamp(calendar.getTimeInMillis());
-        
-        String yearMonthTime = yearMonth.toString().substring(0, 19);
-        
+
+        String yearMonthTime = BasicQuery.findYearMontyStartStringForMealQuery(year, month);
         System.out.println(yearMonthTime);
-        
+        BasicQuery.findYearMonthEndStringForMealQuery(year, month);
         int flag = 0;
-        
         String query = "SELECT meal_rate.rate FROM meal_rate WHERE meal_rate.year_month = '"
                 + yearMonthTime
                 + "'";
-        
         ResultSet result = CreateConnection.getResultFromDatabase(query);
-        if(result.next()){
+        if (result.next()) {
             flag = 1;
             System.out.println(result);
         }
-        System.out.println("Flag = "+flag);
-        if(flag==1){
+        System.out.println("Flag = " + flag);
+        if (flag == 1) {
             query = "UPDATE meal_rate set meal_rate.rate = "
                     + rate
                     + " WHERE meal_rate.year_month = '"
                     + yearMonthTime
                     + "'";
-        }else{
+        } else {
             query = "INSERT INTO meal_rate VALUES('"
                     + yearMonthTime
                     + "',"
@@ -204,8 +196,53 @@ public class BasicQuery {
                     + ")";
         }
         CreateConnection.insertDatatoDatabase(query);
-        
-        
+    }
+
+    public static String findYearMontyStartStringForMealQuery(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
+        Timestamp current = new Timestamp(calendar.getTimeInMillis());
+        calendar.set(year, month, 1, 0, 0, 0);
+
+        Timestamp yearMonth = new Timestamp(calendar.getTimeInMillis());
+
+        String yearMonthTime = yearMonth.toString().substring(0, 19);
+        return yearMonthTime;
+    }
+
+    public static String findYearMonthEndStringForMealQuery(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        // System.out.println(calendar);
+        Timestamp current = new Timestamp(calendar.getTimeInMillis());
+        calendar.set(year, month, 1, 0, 0, 0);
+        calendar.set(year, month, calendar.getActualMaximum(Calendar.DAY_OF_MONTH), 23, 59, 59);
+
+        Timestamp yearMonthEnd = new Timestamp(calendar.getTimeInMillis());
+
+        String yearMonthEndTime = yearMonthEnd.toString().substring(0, 19);
+        // System.out.println("end = "+yearMonthEndTime);
+        return yearMonthEndTime;
+    }
+
+    public static ArrayList<MealDue> getTotalMealDataOfAMonth(int year, int month) throws ClassNotFoundException, SQLException {
+        String start = findYearMontyStartStringForMealQuery(year, month);
+        int totalBrakfast = 0;
+        String startTime = findYearMontyStartStringForMealQuery(year, month);
+        String endTime = findYearMonthEndStringForMealQuery(year, month);
+
+        String query = "SELECT meal_log.id , sum(meal_log.quantity) "
+                + " FROM meal_log WHERE  meal_log.day_time>='"
+                + startTime
+                + "' and meal_log.day_time<='"
+                + endTime
+                + "' GROUP BY meal_log.id";
+
+        ResultSet result = CreateConnection.getResultFromDatabase(query);
+        ArrayList<MealDue> mealDue = new ArrayList<>();
+        while (result.next()) {
+            mealDue.add(new MealDue(result.getInt(1), result.getInt(2)));
+        }
+        return mealDue;
     }
 
 }

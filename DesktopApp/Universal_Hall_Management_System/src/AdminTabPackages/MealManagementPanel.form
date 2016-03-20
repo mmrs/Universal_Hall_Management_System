@@ -19,9 +19,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="174" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton3" min="-2" pref="233" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="233" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="233" max="-2" attributes="0"/>
+                  <Component id="showDueTableButton" min="-2" pref="233" max="-2" attributes="0"/>
+                  <Component id="generateDueTablebutton" min="-2" pref="233" max="-2" attributes="0"/>
+                  <Component id="viewStudentMealData" min="-2" pref="233" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
           </Group>
@@ -31,31 +31,31 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="viewStudentMealData" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="generateDueTablebutton" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace pref="150" max="32767" attributes="0"/>
+              <Component id="showDueTableButton" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace pref="120" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="viewStudentMealData">
       <Properties>
         <Property name="text" type="java.lang.String" value="Veiw Students Meal Data"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="generateDueTablebutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generate Due Table Of A Month"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateDueTablebuttonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="showDueTableButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Due Table"/>
       </Properties>

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Siyam
  */
+
 public class CheckHallStatus extends HttpServlet {
 
     /**
