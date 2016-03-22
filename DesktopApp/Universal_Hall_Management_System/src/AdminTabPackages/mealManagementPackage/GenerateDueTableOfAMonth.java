@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -168,6 +169,20 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         year = yearChooser.getYear();
         month = monthChooser.getMonth();
         try {
+            int prvMealRate = BasicQuery.getMealRate(year, month);
+            if(prvMealRate!=-1){
+                
+                int flag = JOptionPane.showConfirmDialog(this,BasicQuery.theMonth(month)+ " - "+ year+" Already has a meal rate of "+ prvMealRate +"\n"
+                        +"Press yes to update new meal rate to "+mealRate
+                        + ". Press no or cancel to view previous data.");
+                
+                if(flag == JOptionPane.NO_OPTION || flag == JOptionPane.CANCEL_OPTION){
+                    generateTable(prvMealRate, year, month);
+                }
+            }
+            
+            
+            
             BasicQuery.setMealRate(mealRate, year, month);
             generateTable(mealRate, year, month);
             
@@ -191,6 +206,7 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         for(MealDue md : mealDue){
             model.addRow(new Object[]{md.getId(),md.getTotal(),""+year+"-"+month,md.getTotal()*mealRate});
         }
+        BasicQuery.updateMealDueTable(mealDue, mealRate, year, month);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
