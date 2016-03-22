@@ -6,6 +6,10 @@
 package AdminTabPackages;
 
 import AdminTabPackages.mealManagementPackage.GenerateDueTableOfAMonth;
+import AdminTabPackages.mealManagementPackage.ShowStudentsMealData;
+import AdminTabPackages.mealManagementPackage.ViewStudentDueTable;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  *
@@ -34,6 +38,11 @@ public class MealManagementPanel extends javax.swing.JPanel {
         showDueTableButton = new javax.swing.JButton();
 
         viewStudentMealData.setText("Veiw Students Meal Data");
+        viewStudentMealData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStudentMealDataActionPerformed(evt);
+            }
+        });
 
         generateDueTablebutton.setText("Generate Due Table Of A Month");
         generateDueTablebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -43,6 +52,11 @@ public class MealManagementPanel extends javax.swing.JPanel {
         });
 
         showDueTableButton.setText("Show Due Table");
+        showDueTableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showDueTableButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -73,9 +87,35 @@ public class MealManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         GenerateDueTableOfAMonth frame = new GenerateDueTableOfAMonth();
         frame.setVisible(true);
-        
+            frame.setResizable(false);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+            int y = 100;
+            frame.setLocation(x, y);
         
     }//GEN-LAST:event_generateDueTablebuttonActionPerformed
+
+    private void viewStudentMealDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStudentMealDataActionPerformed
+        // TODO add your handling code here:
+       ShowStudentsMealData frame = new ShowStudentsMealData();
+       frame.setVisible(true);
+            frame.setResizable(false);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+            int y = 100;
+            frame.setLocation(x, y);
+    }//GEN-LAST:event_viewStudentMealDataActionPerformed
+
+    private void showDueTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDueTableButtonActionPerformed
+        // TODO add your handling code here:
+       ViewStudentDueTable frame =  new ViewStudentDueTable();
+       frame.setVisible(true);
+            frame.setResizable(false);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
+            int y = 100;
+            frame.setLocation(x, y);
+    }//GEN-LAST:event_showDueTableButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

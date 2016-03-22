@@ -5,6 +5,7 @@
  */
 package QueryPackage;
 
+import BasicPackages.MealData;
 import BasicPackages.MealDue;
 import BasicPackages.Student;
 import dbconnection.CreateConnection;
@@ -198,6 +199,23 @@ public class BasicQuery {
         CreateConnection.insertDatatoDatabase(query);
     }
 
+    public static int getMealRate(int year, int month) throws ClassNotFoundException, SQLException {
+        String yearMonth = findYearMontyStartStringForMealQuery(year, month);
+        int val = -1;
+
+        String query = "SELECT * FROM `meal_rate` WHERE meal_rate.year_month='"
+                + yearMonth
+                + "';";
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        if (resultSet.next()) {
+            val = resultSet.getInt(2);
+        }
+
+        return val;
+
+    }
+
     public static String findYearMontyStartStringForMealQuery(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         System.out.println(calendar);
@@ -243,6 +261,224 @@ public class BasicQuery {
             mealDue.add(new MealDue(result.getInt(1), result.getInt(2)));
         }
         return mealDue;
+    }
+
+    public static void updateMealDueTable(ArrayList<MealDue> mealDues, int mealRate, int year, int month) {
+        String yearMonth = findYearMontyStartStringForMealQuery(year, month);
+        String query = "DELETE FROM meal_due_table WHERE meal_due_table.year_month = "
+                + "'" + yearMonth + "'";
+        CreateConnection.insertDatatoDatabase(query);
+
+        for (MealDue md : mealDues) {
+            query = "INSERT INTO meal_due_table VALUES("
+                    + md.getId()
+                    + ","
+                    + md.getTotal()
+                    + ","
+                    + "'"
+                    + yearMonth
+                    + "'"
+                    + ","
+                    + md.getTotal() * mealRate
+                    + ");";
+            CreateConnection.insertDatatoDatabase(query);
+        }
+
+    }
+
+      
+      
+    
+
+    public static ArrayList<MealData> getStudentMealData(Calendar start, Calendar end) throws ClassNotFoundException, SQLException {
+        Timestamp startTimestamp = findStartOfDayTimeStamp(start);
+        Timestamp endTimestamp = findEndOfDayTimeStamp(end);
+
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE meal_log.day_time>='"
+                + startTimestamp
+                + "' and meal_log.day_time<='"
+                + endTimestamp
+                + "' ";
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+
+    }
+
+    public static ArrayList<MealData> getStudentMealData() throws ClassNotFoundException, SQLException {
+
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id ";
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForASession(Calendar start, Calendar end, int session) throws ClassNotFoundException, SQLException {
+        Timestamp startTimestamp = findStartOfDayTimeStamp(start);
+        Timestamp endTimestamp = findEndOfDayTimeStamp(end);
+
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE meal_log.day_time>='"
+                + startTimestamp
+                + "' and meal_log.day_time<='"
+                + endTimestamp
+                + "'" + " and student_info.student_session="
+                + session;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForASession(int session) throws ClassNotFoundException, SQLException {
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE student_info.student_session="
+                + session;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForADepartment(String dept) throws ClassNotFoundException, SQLException {
+        dept = dept.toUpperCase();
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE student_info.student_dept="
+                + "'"
+                + dept
+                + "'";
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForADepartment(Calendar start, Calendar end, String dept) throws ClassNotFoundException, SQLException {
+        Timestamp startTimestamp = findStartOfDayTimeStamp(start);
+        Timestamp endTimestamp = findEndOfDayTimeStamp(end);
+        dept = dept.toUpperCase();
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE meal_log.day_time>='"
+                + startTimestamp
+                + "' and meal_log.day_time<='"
+                + endTimestamp
+                + "'" + " and student_info.student_dept = "
+                + "'"
+                + dept
+                + "'";
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForAStudent(Calendar start, Calendar end, int id) throws ClassNotFoundException, SQLException {
+        Timestamp startTimestamp = findStartOfDayTimeStamp(start);
+        Timestamp endTimestamp = findEndOfDayTimeStamp(end);
+
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE meal_log.day_time>='"
+                + startTimestamp
+                + "' and meal_log.day_time<='"
+                + endTimestamp
+                + "'" + " and student_info.id="
+                + id;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForAStudent(int id) throws ClassNotFoundException, SQLException {
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE student_info.id="
+                + id;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForADepartmentAndSession(Calendar start, Calendar end, String dept, int session) throws ClassNotFoundException, SQLException {
+        Timestamp startTimestamp = findStartOfDayTimeStamp(start);
+        Timestamp endTimestamp = findEndOfDayTimeStamp(end);
+        dept = dept.toUpperCase();
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE meal_log.day_time>='"
+                + startTimestamp
+                + "' and meal_log.day_time<='"
+                + endTimestamp
+                + "'" + " and student_info.student_dept = "
+                + "'"
+                + dept
+                + "'"
+                + "and student_info.student_session="
+                + session;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getStudentMealDataForADepartmentAndSession(String dept, int session) throws ClassNotFoundException, SQLException {
+
+        dept = dept.toUpperCase();
+        String query = "SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session, meal_log.type,meal_log.quantity,"
+                + "meal_log.day_time FROM student_info INNER JOIN meal_log on meal_log.id = student_info.id "
+                + "WHERE  student_info.student_dept = "
+                + "'"
+                + dept
+                + "'"
+                + "and student_info.student_session="
+                + session;
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
+        return getMealDataArrayListFromResultSet(resultSet);
+    }
+
+    public static ArrayList<MealData> getMealDataArrayListFromResultSet(ResultSet resultSet) throws SQLException {
+        ArrayList<MealData> mealData = new ArrayList<>();
+        while (resultSet.next()) {
+            Student st = new Student(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4));
+            MealData md;
+            md = new MealData(st, resultSet.getString(5), resultSet.getInt(6), resultSet.getTimestamp(7));
+            mealData.add(md);
+
+        }
+        return mealData;
+    }
+
+    public static Timestamp findEndOfDayTimeStamp(Calendar calendar) {
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY),
+                calendar.get(Calendar.DATE), 23, 59, 59);
+        return new Timestamp(calendar.getTimeInMillis());
+    }
+
+    public static Timestamp findStartOfDayTimeStamp(Calendar calendar) {
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY),
+                calendar.get(Calendar.DATE), 0, 0, 0);
+        return new Timestamp(calendar.getTimeInMillis());
+    }
+
+    public static String theMonth(int month) {
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month];
     }
 
 }

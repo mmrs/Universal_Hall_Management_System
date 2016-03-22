@@ -12,7 +12,21 @@ package BasicPackages;
 public class MealDue {
     private int id;
     private int total;
+    private String yearMonth;
 
+    public void setYearMonth(String yearMonth) {
+        this.yearMonth = yearMonth;
+    }
+
+    public String getYearMonth() {
+        return yearMonth;
+    }
+
+    public MealDue(int id, int total, String yearMonth) {
+        this.id = id;
+        this.total = total;
+        this.yearMonth = yearMonth;
+    }
     public MealDue() {
     }
 
@@ -39,8 +53,10 @@ public class MealDue {
 
     @Override
     public String toString() {
-        return "MealDue{" + "id=" + id + ", total=" + total + '}';
+        return "MealDue{" + "id=" + id + ", total=" + total + ", yearMonth=" + yearMonth + '}';
     }
+
+
     
     
 }

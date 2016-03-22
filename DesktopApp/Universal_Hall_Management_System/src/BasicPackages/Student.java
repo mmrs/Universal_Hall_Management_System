@@ -33,9 +33,16 @@ public class Student {
         this.student_dept = student_dept;
         this.student_session = student_session;
     }
-
+    
     public Student() {
 
+    }
+      public Student(Student st) {
+          this.id = st.id;
+          this.student_dept = st.student_dept;
+          this.student_name = st.student_name;
+          this.student_session = st.student_session;
+          this.room_number = st.room_number;
     }
 
     public void setRoom_number(int room_number) {
