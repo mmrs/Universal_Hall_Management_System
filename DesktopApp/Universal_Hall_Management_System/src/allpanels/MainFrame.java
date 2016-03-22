@@ -41,10 +41,11 @@ public class MainFrame extends javax.swing.JFrame {
     DinigManagerPanel dinigManagerPanel = null;
     
     public MainFrame() {
+        super("Universal Hall Management System  1.2");
         initComponents();
-        
         readyAllPanels();
         makeCardLayoutReady();
+        
     }
     
     void readyAllPanels(){
