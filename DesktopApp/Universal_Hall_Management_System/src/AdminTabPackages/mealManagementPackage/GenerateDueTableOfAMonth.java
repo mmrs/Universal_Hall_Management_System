@@ -6,7 +6,11 @@
 package AdminTabPackages.mealManagementPackage;
 
 import BasicPackages.MealDue;
+import PdfCreation.PdfTableWriter;
 import QueryPackage.BasicQuery;
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
+import java.io.Writer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -47,6 +51,7 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         generateButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dueTable = new javax.swing.JTable();
+        printButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,6 +114,13 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
             dueTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        printButton.setText("Print");
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +147,10 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
                                     .addComponent(generateButton, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                                     .addComponent(mealRateTextField))))))
                 .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(225, 225, 225))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +169,9 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
                 .addComponent(generateButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(printButton)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,9 +198,6 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
                     generateTable(prvMealRate, year, month);
                 }
             }
-            
-            
-            
             BasicQuery.setMealRate(mealRate, year, month);
             generateTable(mealRate, year, month);
             
@@ -198,6 +213,17 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         // TODO add your handling code here:
         generateButtonFunction();
     }//GEN-LAST:event_mealRateTextFieldActionPerformed
+
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            new PdfTableWriter("Generated Due Table",dueTable,"Generated Due Table","All Information Is True");
+        } catch (DocumentException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_printButtonActionPerformed
     
     public void generateTable(int mealRate,int year,int month) throws ClassNotFoundException, SQLException{
         ArrayList<MealDue> mealDue = BasicQuery.getTotalMealDataOfAMonth(year, month);
@@ -218,6 +244,7 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField mealRateTextField;
     private com.toedter.calendar.JMonthChooser monthChooser;
+    private javax.swing.JButton printButton;
     private com.toedter.calendar.JYearChooser yearChooser;
     // End of variables declaration//GEN-END:variables
 }

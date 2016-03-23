@@ -286,10 +286,6 @@ public class BasicQuery {
 
     }
 
-      
-      
-    
-
     public static ArrayList<MealData> getStudentMealData(Calendar start, Calendar end) throws ClassNotFoundException, SQLException {
         Timestamp startTimestamp = findStartOfDayTimeStamp(start);
         Timestamp endTimestamp = findEndOfDayTimeStamp(end);

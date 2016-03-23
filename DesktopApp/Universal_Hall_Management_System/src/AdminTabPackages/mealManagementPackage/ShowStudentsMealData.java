@@ -7,14 +7,19 @@ package AdminTabPackages.mealManagementPackage;
 
 import BasicPackages.MealData;
 import BasicPackages.Student;
+import PdfCreation.PdfTableWriter;
 import QueryPackage.BasicQuery;
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import oracle.sql.TIMESTAMP;
 
 /**
  *
@@ -57,6 +62,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         regNoTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        printButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,14 +167,17 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jLabel7.setText("Leave this field empty to show all student data");
 
+        printButton.setText("Print");
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,6 +216,14 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +257,8 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
                 .addComponent(logLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(printButton))
         );
 
         jTabbedPane1.addTab("All Student Data", jPanel1);
@@ -269,9 +287,10 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         viewButtonPressed();
+
     }//GEN-LAST:event_viewButtonActionPerformed
 
-    public void viewButtonPressed(){
+    public void viewButtonPressed() {
         String regNo = regNoTextField.getText().trim();
         try {
             // TODO add your handling code here:
@@ -324,11 +343,31 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
 
     private void regNoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regNoTextFieldKeyTyped
         // TODO add your handling code here:
-           char key = evt.getKeyChar();
+        char key = evt.getKeyChar();
         if (key < '0' || key > '9') {
             evt.consume();
         }
     }//GEN-LAST:event_regNoTextFieldKeyTyped
+    public String timeString() {
+        if (jCheckBox1.isSelected()) {
+            return "";
+        } else {
+            Calendar start = startDate.getCalendar();
+            return "From " + new Timestamp(startDate.getCalendar().getTimeInMillis()).toString() 
+                    + " to " + new Timestamp(endDate.getCalendar().getTimeInMillis()).toString();
+        }
+    }
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            new PdfTableWriter("Student Meal Data", infoTable, "Student meal Data. " + timeString(), "The table was generated by uhms.");
+        } catch (DocumentException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_printButtonActionPerformed
 
     public void viewAllData() throws ClassNotFoundException, SQLException {
         if (jCheckBox1.isSelected() == false) {
@@ -456,6 +495,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel logLabel;
+    private javax.swing.JButton printButton;
     private javax.swing.JTextField regNoTextField;
     private javax.swing.JTextField sessionTextField;
     private com.toedter.calendar.JDateChooser startDate;

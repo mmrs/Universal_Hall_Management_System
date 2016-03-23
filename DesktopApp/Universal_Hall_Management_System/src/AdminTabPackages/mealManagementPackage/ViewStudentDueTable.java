@@ -7,8 +7,11 @@ package AdminTabPackages.mealManagementPackage;
 
 import BasicPackages.MealData;
 import BasicPackages.Student;
+import PdfCreation.PdfTableWriter;
 import QueryPackage.BasicQuery;
 import QueryPackage.ViewDueTableQuery;
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,6 +66,7 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         endYearChooser = new com.toedter.calendar.JYearChooser();
         endMonthChooser = new com.toedter.calendar.JMonthChooser();
+        printButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -171,6 +175,13 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel20.setText("Month : ");
 
+        printButton.setText("Print");
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,6 +238,10 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(27, 27, 27)))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +282,9 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
                 .addComponent(logLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(printButton)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("All Student Data", jPanel1);
@@ -297,7 +314,7 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         viewButtonPressed();
     }//GEN-LAST:event_viewButtonActionPerformed
-public void viewButtonPressed(){
+    public void viewButtonPressed() {
         String regNo = regNoTextField.getText().trim();
         try {
             // TODO add your handling code here:
@@ -332,14 +349,14 @@ public void viewButtonPressed(){
         }
 
     }
-   public void viewAllData() throws ClassNotFoundException, SQLException {
+
+    public void viewAllData() throws ClassNotFoundException, SQLException {
         if (viewAllDateCheckBox.isSelected() == false) {
             int startMonth = startMonthChooser.getMonth();
             int startYear = startYearChooser.getYear();
             int endMonth = endMonthChooser.getMonth();
             int endYear = endYearChooser.getYear();
-            
-             
+
             readayTable(ViewDueTableQuery.getMealDueResultSet(startYear, startMonth, endYear, endMonth));
 
         } else {
@@ -353,9 +370,8 @@ public void viewButtonPressed(){
             int startYear = startYearChooser.getYear();
             int endMonth = endMonthChooser.getMonth();
             int endYear = endYearChooser.getYear();
-            
-             
-            readayTable(ViewDueTableQuery.getMealDueResultSetForASession(startYear, startMonth, endYear, endMonth,session));
+
+            readayTable(ViewDueTableQuery.getMealDueResultSetForASession(startYear, startMonth, endYear, endMonth, session));
 
         } else {
             readayTable(ViewDueTableQuery.getMealDueResultSetForASession(session));
@@ -363,14 +379,13 @@ public void viewButtonPressed(){
     }
 
     public void viewDataWithADepartment(String dept) throws SQLException, ClassNotFoundException {
-         if (viewAllDateCheckBox.isSelected() == false) {
+        if (viewAllDateCheckBox.isSelected() == false) {
             int startMonth = startMonthChooser.getMonth();
             int startYear = startYearChooser.getYear();
             int endMonth = endMonthChooser.getMonth();
             int endYear = endYearChooser.getYear();
-            
-             
-            readayTable(ViewDueTableQuery.getMealDueResultSetForADepartment(startYear, startMonth, endYear, endMonth,dept));
+
+            readayTable(ViewDueTableQuery.getMealDueResultSetForADepartment(startYear, startMonth, endYear, endMonth, dept));
 
         } else {
             readayTable(ViewDueTableQuery.getMealDueResultSetForADepartment(dept));
@@ -378,14 +393,14 @@ public void viewButtonPressed(){
     }
 
     public void viewDataWithADepartmentAndSession(String dept, int session) throws SQLException, ClassNotFoundException {
-         if (viewAllDateCheckBox.isSelected() == false) {
+        if (viewAllDateCheckBox.isSelected() == false) {
             int startMonth = startMonthChooser.getMonth();
             int startYear = startYearChooser.getYear();
             int endMonth = endMonthChooser.getMonth();
             int endYear = endYearChooser.getYear();
-            readayTable(ViewDueTableQuery.getMealDueResultSetForADepartmentAndSession(startYear, startMonth, endYear, endMonth,dept,session));
+            readayTable(ViewDueTableQuery.getMealDueResultSetForADepartmentAndSession(startYear, startMonth, endYear, endMonth, dept, session));
         } else {
-            ViewDueTableQuery.getMealDueResultSetForADepartmentAndSession(dept,session);
+            ViewDueTableQuery.getMealDueResultSetForADepartmentAndSession(dept, session);
         }
     }
 
@@ -395,7 +410,7 @@ public void viewButtonPressed(){
             int startYear = startYearChooser.getYear();
             int endMonth = endMonthChooser.getMonth();
             int endYear = endYearChooser.getYear();
-            readayTable(ViewDueTableQuery.getMealDueResultSetForAStudent(startYear, startMonth, endYear, endMonth,id));
+            readayTable(ViewDueTableQuery.getMealDueResultSetForAStudent(startYear, startMonth, endYear, endMonth, id));
         } else {
             readayTable(ViewDueTableQuery.getMealDueResultSetForAStudent(id));
         }
@@ -404,19 +419,18 @@ public void viewButtonPressed(){
     public void readayTable(ResultSet resultSet) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
         model.setRowCount(0);
-        while(resultSet.next()){
-            model.addRow(new Object[]{resultSet.getObject(1),resultSet.getObject(2),resultSet.getObject(3),resultSet.getObject(4),
-            resultSet.getObject(5),resultSet.getObject(6),resultSet.getObject(7)});
+        while (resultSet.next()) {
+            model.addRow(new Object[]{resultSet.getObject(1), resultSet.getObject(2), resultSet.getObject(3), resultSet.getObject(4),
+                resultSet.getObject(5), resultSet.getObject(6), resultSet.getObject(7)});
         }
         return;
     }
-    
-    
-    
+
+
     private void viewAllDateCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_viewAllDateCheckBoxStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_viewAllDateCheckBoxStateChanged
-    
+
     private void viewAllDateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllDateCheckBoxActionPerformed
         // TODO add your handling code here:
         if (viewAllDateCheckBox.isSelected()) {
@@ -440,6 +454,39 @@ public void viewButtonPressed(){
         }
     }//GEN-LAST:event_regNoTextFieldKeyTyped
 
+    public String timeString() {
+        if (viewAllDateCheckBox.isSelected() == true) {
+            return "";
+        } else {
+            String[] str = {"January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"};
+            return "From " + str[startMonthChooser.getMonth()]+" "+startYearChooser.getYear()
+                    +" to " + str[endMonthChooser.getMonth()]+" "+endYearChooser.getYear();
+        }
+    }
+
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            new PdfTableWriter("Student Due Data", infoTable, "Student due data. " + timeString(), "The table was generated by uhms.");
+        } catch (DocumentException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_printButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField deptTextField;
     private com.toedter.calendar.JMonthChooser endMonthChooser;
@@ -458,6 +505,7 @@ public void viewButtonPressed(){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel logLabel;
+    private javax.swing.JButton printButton;
     private javax.swing.JTextField regNoTextField;
     private javax.swing.JTextField sessionTextField;
     private com.toedter.calendar.JMonthChooser startMonthChooser;
