@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2016 at 11:32 AM
+-- Generation Time: Mar 23, 2016 at 06:25 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -550,6 +550,98 @@ ALTER TABLE `users`
 ALTER TABLE `student_gardian_relation`
   ADD CONSTRAINT `fk_sgr1` FOREIGN KEY (`student_id`) REFERENCES `student_info` (`id`),
   ADD CONSTRAINT `fk_sgr2` FOREIGN KEY (`gardian_id`) REFERENCES `gardian_info` (`id`);
+
+
+--
+-- Metadata
+--
+USE `phpmyadmin`;
+
+--
+-- Metadata for allocated
+--
+
+--
+-- Metadata for bazar_info
+--
+
+--
+-- Metadata for check_in_out
+--
+
+--
+-- Metadata for current_rooms_info
+--
+
+--
+-- Metadata for gardian_info
+--
+
+--
+-- Metadata for hall_info
+--
+
+--
+-- Metadata for meal_due_table
+--
+
+--
+-- Metadata for meal_log
+--
+
+--
+-- Metadata for meal_rate
+--
+
+--
+-- Metadata for student_gardian_relation
+--
+
+--
+-- Metadata for student_info
+--
+
+--
+-- Dumping data for table `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'uhms', 'student_info', '[]', '2016-03-04 04:41:14');
+
+--
+-- Metadata for student_status
+--
+
+--
+-- Metadata for users
+--
+
+--
+-- Metadata for uhms
+--
+
+--
+-- Dumping data for table `pma__relation`
+--
+
+INSERT INTO `pma__relation` (`master_db`, `master_table`, `master_field`, `foreign_db`, `foreign_table`, `foreign_field`) VALUES
+('uhms', 'allocated', 'id', 'uhms', 'student_info', 'id'),
+('uhms', 'allocated', 'room_number', 'uhms', 'current_rooms_info', 'room_number'),
+('uhms', 'bazar_info', 'user_id', 'uhms', 'users', 'id'),
+('uhms', 'check_in_out', 'id', 'uhms', 'student_info', 'id'),
+('uhms', 'current_rooms_info', 'room_number', 'uhms', 'hall_info', 'room_number'),
+('uhms', 'gardian_info', 'id', 'uhms', 'student_info', 'id'),
+('uhms', 'meal_due_table', 'id', 'uhms', 'student_info', 'id'),
+('uhms', 'meal_due_table', 'year_month', 'uhms', 'meal_rate', 'year_month'),
+('uhms', 'meal_log', 'id', 'uhms', 'student_info', 'id'),
+('uhms', 'student_status', 'id', 'uhms', 'student_info', 'id');
+
+--
+-- Dumping data for table `pma__central_columns`
+--
+
+INSERT INTO `pma__central_columns` (`db_name`, `col_name`, `col_type`, `col_length`, `col_collation`, `col_isNull`, `col_extra`, `col_default`) VALUES
+('uhms', 'status', 'varchar', '20', 'latin1_swedish_ci', 0, ',', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
