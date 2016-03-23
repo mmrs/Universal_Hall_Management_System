@@ -155,6 +155,17 @@ public class CheckHallStatus extends HttpServlet {
             } else {
                 gsonWriter.value("0");
             }
+                     //calculate meal rate
+                rs = st.executeQuery("select sum(quantity) from meal_log  where day_time>= '" + start
+                        + "' AND day_time<='" + end + "'");
+                rs.next();
+                int totalMeal = rs.getInt(1);
+                 rs = st.executeQuery("select sum(amount) from bazar_info  where day_time>= '" + start
+                        + "' AND day_time<='" + end + "'");
+                 rs.next();
+                int totalBazarAmount = rs.getInt(1);
+                gsonWriter.name("meal_rate");
+                gsonWriter.value((double)totalBazarAmount/totalMeal +"");
 
             gsonWriter.name("status");
             gsonWriter.value("200");

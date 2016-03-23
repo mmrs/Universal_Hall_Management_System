@@ -98,6 +98,8 @@ public class DinigManagerPanel extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         studentName = new javax.swing.JLabel();
+        mealRateLabel = new javax.swing.JLabel();
+        totalCostLabel = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -377,6 +379,12 @@ public class DinigManagerPanel extends javax.swing.JPanel {
 
         studentName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
+        mealRateLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        mealRateLabel.setText("Current Month Meal Rate :  ");
+
+        totalCostLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        totalCostLabel.setText("Total Cost :    ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -417,7 +425,12 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                                .addComponent(jSeparator2)))))
+                                .addComponent(jSeparator2))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(totalCostLabel)
+                            .addComponent(mealRateLabel))))
                 .addContainerGap(257, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -452,7 +465,11 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                     .addComponent(type3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(mealRateLabel)
+                .addGap(18, 18, 18)
+                .addComponent(totalCostLabel)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Single Student Current Month Report", jPanel2);
@@ -595,6 +612,22 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                 } else {
                     quantity3.setText("00");
                 }
+                
+                //calculate meal rate
+                resultSet = CreateConnection.getResultFromDatabase("select sum(quantity) from meal_log  where day_time>= '" + start
+                        + "' AND day_time<='" + end + "'");
+                resultSet.next();
+                int totalMeal = resultSet.getInt(1);
+                 resultSet = CreateConnection.getResultFromDatabase("select sum(amount) from bazar_info  where day_time>= '" + start
+                        + "' AND day_time<='" + end + "'");
+                 resultSet.next();
+                int totalBazarAmount = resultSet.getInt(1);
+                mealRateLabel.setText("Current Month Meal Rate :  " + (double)totalBazarAmount/totalMeal);
+                Double cost = Double.parseDouble("" + quantity1.getText());
+                                cost +=  Double.parseDouble("" + quantity2.getText());
+                                cost +=  Double.parseDouble("" + quantity3.getText());
+                                cost*= (double)totalBazarAmount/totalMeal;
+                                totalCostLabel.setText("Total Cost :   " + cost);
 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -699,6 +732,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable logTable;
     private javax.swing.JSpinner mealQuantity;
+    private javax.swing.JLabel mealRateLabel;
     private javax.swing.JComboBox<String> mealTypeOptions;
     private javax.swing.JLabel quantity1;
     private javax.swing.JLabel quantity2;
@@ -710,6 +744,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField searchEntryTextField;
     private javax.swing.JLabel studentName;
     private javax.swing.JLabel studentName2;
+    private javax.swing.JLabel totalCostLabel;
     private javax.swing.JLabel type1;
     private javax.swing.JLabel type2;
     private javax.swing.JLabel type3;

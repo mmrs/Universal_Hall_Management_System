@@ -133,7 +133,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
                     .addComponent(getRegNoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(studentName, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
@@ -267,9 +267,12 @@ public class GateKeeperPanel extends javax.swing.JPanel {
             resultSet = CreateConnection.getResultFromDatabase("select student_name from student_info where id=" + regNo +"");
             if(resultSet.next())
             studentName.setText(resultSet.getString("student_name"));
-            else 
+            else {
                 studentName.setText("Student Not Found On DataBase");
-            
+            checkInButton.setEnabled(false);
+            checkOutButton.setEnabled(false);
+            }
+                
             resultSet = CreateConnection.getResultFromDatabase("select `type` from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
             resultSet.next();
             String type = resultSet.getString("type");
@@ -280,7 +283,7 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             
             checkOutButton.setEnabled(false);
-            checkInButton.setEnabled(false);
+            checkInButton.setEnabled(true);
           //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
            // Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
