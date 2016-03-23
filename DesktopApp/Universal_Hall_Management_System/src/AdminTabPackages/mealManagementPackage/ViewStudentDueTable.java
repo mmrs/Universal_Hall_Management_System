@@ -403,15 +403,11 @@ public void viewButtonPressed(){
 
     public void readayTable(ResultSet resultSet) throws SQLException {
         DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
-        
         model.setRowCount(0);
         while(resultSet.next()){
             model.addRow(new Object[]{resultSet.getObject(1),resultSet.getObject(2),resultSet.getObject(3),resultSet.getObject(4),
             resultSet.getObject(5),resultSet.getObject(6),resultSet.getObject(7)});
         }
-        
-        
-        
         return;
     }
     
