@@ -476,5 +476,27 @@ public class BasicQuery {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
+    
+    public static void addToBazar(int user,int ammount,String comment){
+        String query = "INSERT INTO bazar_info (user_id, amount, comment) VALUES("
+                + user
+                + ","
+                + ammount
+                + ",\""
+                + comment
+                + "\")";
+        
+        CreateConnection.insertDatatoDatabase(query);
+    }
+    
+    public static ResultSet getCurrentSeatInformation() throws ClassNotFoundException, SQLException{
+        String query = "SELECT p.id , p.student_name ,p.student_dept,p.student_session,"
+                + "hall_info.floor_number,p.room_number FROM "
+                + "(SELECT student_info.id,student_info.student_name,student_info.student_dept,"
+                + "student_info.student_session,allocated.room_number FROM student_info INNER JOIN "
+                + "allocated on allocated.id = student_info.id ) p INNER JOIN hall_info ON "
+                + "p.room_number = hall_info.room_number;";
+        return CreateConnection.getResultFromDatabase(query);
+    }
 
 }

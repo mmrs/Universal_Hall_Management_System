@@ -6,6 +6,7 @@
 package AdminTabPackages;
 
 import AdminTabPackages.studentManagementPackage.AddSingleStudentFrame;
+import AdminTabPackages.studentManagementPackage.CurrentSeatInformation;
 import AdminTabPackages.studentManagementPackage.RemoveCompleteSession;
 import AdminTabPackages.studentManagementPackage.RemoveSingleStudent;
 import AdminTabPackages.studentManagementPackage.ViewStudentWhoGotSeat;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -53,6 +55,7 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         addSingleStudentButton = new javax.swing.JButton();
         removeSingleStudentButton = new javax.swing.JButton();
         removeStudentCompletSeason = new javax.swing.JButton();
+        viewStudentInformation = new javax.swing.JButton();
 
         addStudentFromDatabaseButton.setText("Add Students From Student Database");
         addStudentFromDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,31 +85,41 @@ public class StudentManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        viewStudentInformation.setText("Current Seat Information");
+        viewStudentInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStudentInformationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(188, 188, 188)
+                .addGap(215, 215, 215)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addStudentFromDatabaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removeStudentCompletSeason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removeSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(214, Short.MAX_VALUE))
+                    .addComponent(addSingleStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewStudentInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(54, 54, 54)
+                .addComponent(viewStudentInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addStudentFromDatabaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addSingleStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(removeSingleStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(removeStudentCompletSeason, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -141,8 +154,6 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         int y = 100;
         frame.setLocation(x, y);
     }
-
-    
 
     /**
      * returns a session wise sorted random student list from (param result)
@@ -298,37 +309,51 @@ public class StudentManagementPanel extends javax.swing.JPanel {
         return roomStudent;
     }
 
-    
-
 
     private void addSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSingleStudentButtonActionPerformed
         // TODO add your handling code here:
 
-        new AddSingleStudentFrame().setVisible(true);
+       AddSingleStudentFrame frame = new AddSingleStudentFrame();
+        openFrame(frame);
     }//GEN-LAST:event_addSingleStudentButtonActionPerformed
 
     private void removeSingleStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeSingleStudentButtonActionPerformed
         // TODO add your handling code here:
         RemoveSingleStudent frame = new RemoveSingleStudent();
+        openFrame(frame);
+    }//GEN-LAST:event_removeSingleStudentButtonActionPerformed
+
+    private void removeStudentCompletSeasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentCompletSeasonActionPerformed
+        // TODO add your handling code here:
+        RemoveCompleteSession frame = new RemoveCompleteSession();
+         openFrame(frame);
+    }//GEN-LAST:event_removeStudentCompletSeasonActionPerformed
+
+    private void viewStudentInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStudentInformationActionPerformed
+        try {
+            // TODO add your handling code here:
+            CurrentSeatInformation frame = new CurrentSeatInformation(BasicQuery.getCurrentSeatInformation());
+               openFrame(frame);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_viewStudentInformationActionPerformed
+    public void openFrame(JFrame frame) {
         frame.setVisible(true);
         frame.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
         int y = 100;
         frame.setLocation(x, y);
-    }//GEN-LAST:event_removeSingleStudentButtonActionPerformed
-
-    private void removeStudentCompletSeasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentCompletSeasonActionPerformed
-        // TODO add your handling code here:
-        RemoveCompleteSession frame = new RemoveCompleteSession();
-        frame.setVisible(true);
-    }//GEN-LAST:event_removeStudentCompletSeasonActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSingleStudentButton;
     private javax.swing.JButton addStudentFromDatabaseButton;
     private javax.swing.JButton removeSingleStudentButton;
     private javax.swing.JButton removeStudentCompletSeason;
+    private javax.swing.JButton viewStudentInformation;
     // End of variables declaration//GEN-END:variables
 }

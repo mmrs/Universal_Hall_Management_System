@@ -5,11 +5,13 @@
  */
 package AdminTabPackages;
 
+import AdminTabPackages.mealManagementPackage.AddBazarAmount;
 import AdminTabPackages.mealManagementPackage.GenerateDueTableOfAMonth;
 import AdminTabPackages.mealManagementPackage.ShowStudentsMealData;
 import AdminTabPackages.mealManagementPackage.ViewStudentDueTable;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -36,6 +38,9 @@ public class MealManagementPanel extends javax.swing.JPanel {
         viewStudentMealData = new javax.swing.JButton();
         generateDueTablebutton = new javax.swing.JButton();
         showDueTableButton = new javax.swing.JButton();
+        addBazarAmountButton = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(692, 390));
 
         viewStudentMealData.setText("Veiw Students Meal Data");
         viewStudentMealData.addActionListener(new java.awt.event.ActionListener() {
@@ -58,67 +63,76 @@ public class MealManagementPanel extends javax.swing.JPanel {
             }
         });
 
+        addBazarAmountButton.setText("Add Bazar Amount");
+        addBazarAmountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBazarAmountButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(214, 214, 214)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(showDueTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addBazarAmountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewStudentMealData, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(generateDueTablebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewStudentMealData, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(190, 190, 190))
+                    .addComponent(showDueTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(64, 64, 64)
+                .addComponent(addBazarAmountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(viewStudentMealData, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(generateDueTablebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showDueTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void generateDueTablebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDueTablebuttonActionPerformed
         // TODO add your handling code here:
         GenerateDueTableOfAMonth frame = new GenerateDueTableOfAMonth();
-        frame.setVisible(true);
-            frame.setResizable(false);
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
-            int y = 100;
-            frame.setLocation(x, y);
+        openFrame(frame);
         
     }//GEN-LAST:event_generateDueTablebuttonActionPerformed
 
     private void viewStudentMealDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStudentMealDataActionPerformed
         // TODO add your handling code here:
        ShowStudentsMealData frame = new ShowStudentsMealData();
-       frame.setVisible(true);
-            frame.setResizable(false);
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
-            int y = 100;
-            frame.setLocation(x, y);
+        openFrame(frame);
     }//GEN-LAST:event_viewStudentMealDataActionPerformed
 
     private void showDueTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDueTableButtonActionPerformed
         // TODO add your handling code here:
        ViewStudentDueTable frame =  new ViewStudentDueTable();
-       frame.setVisible(true);
+        openFrame(frame);
+    }//GEN-LAST:event_showDueTableButtonActionPerformed
+
+    private void addBazarAmountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBazarAmountButtonActionPerformed
+        // TODO add your handling code here:
+        AddBazarAmount frame = new AddBazarAmount();
+        openFrame(frame);
+    }//GEN-LAST:event_addBazarAmountButtonActionPerformed
+    public void openFrame(JFrame frame){
+         frame.setVisible(true);
             frame.setResizable(false);
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             int x = (int) ((dim.getWidth() - frame.getWidth()) / 2);
             int y = 100;
             frame.setLocation(x, y);
-    }//GEN-LAST:event_showDueTableButtonActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBazarAmountButton;
     private javax.swing.JButton generateDueTablebutton;
     private javax.swing.JButton showDueTableButton;
     private javax.swing.JButton viewStudentMealData;

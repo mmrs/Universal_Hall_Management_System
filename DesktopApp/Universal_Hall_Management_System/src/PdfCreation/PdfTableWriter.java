@@ -9,6 +9,8 @@ import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
@@ -60,7 +62,7 @@ public class PdfTableWriter {
         this.ourDoc.open();
         this.addMetaData();
         this.addToPage(this.newParagraph(titel+"\n"+"\n", true, false, false));
-        for(String st: arr)  this.addToPage(this.newParagraph(st+"\n", false, true, false));
+        for(String st: arr)  this.addToPage(this.newParagraph(st+"\n", true, false, false));
        
         this.addToPage(new Paragraph(" "));
         this.addToPage(this.addTable(table));
@@ -72,23 +74,31 @@ public class PdfTableWriter {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         Section ourTableSection = new Chapter(0).addSection(this.newParagraph("Information Table", true, false, false));
         ourTableSection.add(new Paragraph(" "));
-        PdfPTable ourTable = new PdfPTable(model.getColumnCount());
-
+        PdfPTable ourTable = new PdfPTable( model.getColumnCount()+1);
+        int count = 1;
+       
+            ourTable.addCell(new Phrase("    ",FontFactory.getFont(FontFactory.HELVETICA, 8,Font.BOLD)));
         for (int i = 0; i < model.getColumnCount(); i++) {
-            ourTable.addCell(new PdfPCell(new Phrase(model.getColumnName(i).toString())));
+            Phrase phrase = new Phrase(model.getColumnName(i).toString(),FontFactory.getFont(FontFactory.HELVETICA, 8,Font.BOLD));
+            ourTable.addCell(new PdfPCell(phrase));
+            
         }
 
         for (int i = 0; i < model.getRowCount(); i++) {
+            ourTable.addCell(new Phrase(""+count++,FontFactory.getFont(FontFactory.HELVETICA, 8)));
             for (int j = 0; j < model.getColumnCount(); j++) {
-                ourTable.addCell(model.getValueAt(i, j).toString());
+                Phrase phrase = new Phrase(model.getValueAt(i, j).toString(),FontFactory.getFont(FontFactory.HELVETICA, 8));
+                ourTable.addCell(phrase);
             }
         }
+        
         ourTableSection.add(ourTable);
-
+        
         return ourTableSection;
     }
 
     public void addToPage(Element toAdd) throws DocumentException {
+        
         this.ourDoc.add(toAdd);
     }
 
@@ -113,6 +123,7 @@ public class PdfTableWriter {
         } else if (!alignCenter && !alignLeft && alignRight) {
             ourParagraph.setAlignment(Element.ALIGN_RIGHT);
         }
+    //    ourParagraph.setFont(new Font(Font.FontFamily.COURIER, 11));
         ourParagraph.add(text);
         return ourParagraph;
     }
