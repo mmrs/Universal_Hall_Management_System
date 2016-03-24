@@ -5,6 +5,7 @@
  */
 package allpanels;
 
+import AdminTabPackages.AnalysisAndStatisticsPanel;
 import AdminTabPackages.CheckInCheckOutPanel;
 import AdminTabPackages.HallInformationPanel;
 import AdminTabPackages.MealManagementPanel;
@@ -29,6 +30,9 @@ public class AdminPanel extends javax.swing.JPanel {
     CardLayout cardLayoutForStudentManagementTab = new CardLayout();
     CardLayout cardLayoutForMealManagementTab = new CardLayout();
     CardLayout cardLayoutForCheckInCheckOutTab = new CardLayout();
+    CardLayout cardLayoutForAnalysisTab = new CardLayout();
+    AnalysisAndStatisticsPanel analysisAndStatisticsPanel = new AnalysisAndStatisticsPanel();
+    
 
     public AdminPanel() {
         initComponents();
@@ -47,8 +51,13 @@ public class AdminPanel extends javax.swing.JPanel {
         setStudentManagementTab();
         setMealManagementTab();
         setCheckInCheckOutTab();
+        setAnalysisTab();
     }
-
+void setAnalysisTab() {
+         analysisContainer.setLayout(cardLayoutForAnalysisTab);
+        analysisContainer.add("AnalysisPanel", analysisAndStatisticsPanel);
+        cardLayoutForAnalysisTab.show(analysisContainer, "AnalysisPanel");
+    }
     void setMealManagementTab() {
         jPanel1.setLayout(cardLayoutForMealManagementTab);
         jPanel1.add("MealManagementPanel", mealManagementPanel);
@@ -88,6 +97,7 @@ public class AdminPanel extends javax.swing.JPanel {
         hallInformationTabPanel = new javax.swing.JPanel();
         hallInformationPanelContainer = new javax.swing.JPanel();
         adminOptionsTabPanel = new javax.swing.JPanel();
+        analysisContainer = new javax.swing.JPanel();
         checkInCheckOutTabPanel = new javax.swing.JPanel();
         checkInCheckOutPanelContainer = new javax.swing.JPanel();
         adminInformationLabel = new javax.swing.JLabel();
@@ -169,18 +179,29 @@ public class AdminPanel extends javax.swing.JPanel {
 
         mainAdminTabPanel.addTab("Hall Information", hallInformationTabPanel);
 
+        javax.swing.GroupLayout analysisContainerLayout = new javax.swing.GroupLayout(analysisContainer);
+        analysisContainer.setLayout(analysisContainerLayout);
+        analysisContainerLayout.setHorizontalGroup(
+            analysisContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        analysisContainerLayout.setVerticalGroup(
+            analysisContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout adminOptionsTabPanelLayout = new javax.swing.GroupLayout(adminOptionsTabPanel);
         adminOptionsTabPanel.setLayout(adminOptionsTabPanelLayout);
         adminOptionsTabPanelLayout.setHorizontalGroup(
             adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+            .addComponent(analysisContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         adminOptionsTabPanelLayout.setVerticalGroup(
             adminOptionsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addComponent(analysisContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        mainAdminTabPanel.addTab("Admin Options", adminOptionsTabPanel);
+        mainAdminTabPanel.addTab("Analysis And Statistics", adminOptionsTabPanel);
 
         javax.swing.GroupLayout checkInCheckOutPanelContainerLayout = new javax.swing.GroupLayout(checkInCheckOutPanelContainer);
         checkInCheckOutPanelContainer.setLayout(checkInCheckOutPanelContainerLayout);
@@ -253,6 +274,7 @@ public class AdminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adminInformationLabel;
     private javax.swing.JPanel adminOptionsTabPanel;
+    private javax.swing.JPanel analysisContainer;
     private javax.swing.JPanel checkInCheckOutPanelContainer;
     private javax.swing.JPanel checkInCheckOutTabPanel;
     private javax.swing.JPanel hallInformationPanelContainer;
