@@ -5,6 +5,7 @@
  */
 package allpanels;
 
+import AdminTabPackages.CheckInCheckOutPanel;
 import AdminTabPackages.HallInformationPanel;
 import AdminTabPackages.MealManagementPanel;
 import AdminTabPackages.StudentManagementPanel;
@@ -23,17 +24,21 @@ public class AdminPanel extends javax.swing.JPanel {
     HallInformationPanel hallInformationPanel = new HallInformationPanel();
     StudentManagementPanel studentManagementPanel = new StudentManagementPanel();
     MealManagementPanel mealManagementPanel = new MealManagementPanel();
+    CheckInCheckOutPanel checkInCheckOutPanel = new CheckInCheckOutPanel();
     CardLayout cardLayoutForHallInformationTab = new CardLayout();
     CardLayout cardLayoutForStudentManagementTab = new CardLayout();
     CardLayout cardLayoutForMealManagementTab = new CardLayout();
+    CardLayout cardLayoutForCheckInCheckOutTab = new CardLayout();
+
     public AdminPanel() {
         initComponents();
     }
-    
+
     /**
-     * this constructor is used to set the parentFrame reference 
-     * so that after log out it can show it's parent frome
-     * @param parent 
+     * this constructor is used to set the parentFrame reference so that after
+     * log out it can show it's parent frome
+     *
+     * @param parent
      */
     public AdminPanel(MainFrame parent) {
         initComponents();
@@ -41,21 +46,29 @@ public class AdminPanel extends javax.swing.JPanel {
         setHallInformationTab();
         setStudentManagementTab();
         setMealManagementTab();
+        setCheckInCheckOutTab();
     }
-    void setMealManagementTab(){
+
+    void setMealManagementTab() {
         jPanel1.setLayout(cardLayoutForMealManagementTab);
-        jPanel1.add("MealManagementPanel",mealManagementPanel);
+        jPanel1.add("MealManagementPanel", mealManagementPanel);
         cardLayoutForMealManagementTab.show(jPanel1, "MealManagementPanel");
     }
-    void setStudentManagementTab(){
+
+    void setStudentManagementTab() {
         studentManagementPanelContainer.setLayout(cardLayoutForStudentManagementTab);
-        studentManagementPanelContainer.add("StudentManagementPanel",studentManagementPanel);
-        cardLayoutForStudentManagementTab.show(studentManagementPanelContainer,"StudentManagementPanel");
+        studentManagementPanelContainer.add("StudentManagementPanel", studentManagementPanel);
+        cardLayoutForStudentManagementTab.show(studentManagementPanelContainer, "StudentManagementPanel");
     }
-    void setHallInformationTab(){
-      hallInformationPanelContainer.setLayout(cardLayoutForHallInformationTab);
-      hallInformationPanelContainer.add("HallInformationPanel",hallInformationPanel);
-      cardLayoutForHallInformationTab.show(hallInformationPanelContainer, "HallInformationPanel");
+ void setCheckInCheckOutTab() {
+        checkInCheckOutPanelContainer.setLayout(cardLayoutForCheckInCheckOutTab);
+        checkInCheckOutPanelContainer.add("CheckInCheckOutPanel", checkInCheckOutPanel);
+        cardLayoutForCheckInCheckOutTab.show(checkInCheckOutPanelContainer, "CheckInCheckOutPanel");
+    }
+    void setHallInformationTab() {
+        hallInformationPanelContainer.setLayout(cardLayoutForHallInformationTab);
+        hallInformationPanelContainer.add("HallInformationPanel", hallInformationPanel);
+        cardLayoutForHallInformationTab.show(hallInformationPanelContainer, "HallInformationPanel");
     }
 
     /**
@@ -76,6 +89,7 @@ public class AdminPanel extends javax.swing.JPanel {
         hallInformationPanelContainer = new javax.swing.JPanel();
         adminOptionsTabPanel = new javax.swing.JPanel();
         checkInCheckOutTabPanel = new javax.swing.JPanel();
+        checkInCheckOutPanelContainer = new javax.swing.JPanel();
         adminInformationLabel = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
 
@@ -168,20 +182,31 @@ public class AdminPanel extends javax.swing.JPanel {
 
         mainAdminTabPanel.addTab("Admin Options", adminOptionsTabPanel);
 
+        javax.swing.GroupLayout checkInCheckOutPanelContainerLayout = new javax.swing.GroupLayout(checkInCheckOutPanelContainer);
+        checkInCheckOutPanelContainer.setLayout(checkInCheckOutPanelContainerLayout);
+        checkInCheckOutPanelContainerLayout.setHorizontalGroup(
+            checkInCheckOutPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        checkInCheckOutPanelContainerLayout.setVerticalGroup(
+            checkInCheckOutPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout checkInCheckOutTabPanelLayout = new javax.swing.GroupLayout(checkInCheckOutTabPanel);
         checkInCheckOutTabPanel.setLayout(checkInCheckOutTabPanelLayout);
         checkInCheckOutTabPanelLayout.setHorizontalGroup(
             checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+            .addComponent(checkInCheckOutPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         checkInCheckOutTabPanelLayout.setVerticalGroup(
             checkInCheckOutTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addComponent(checkInCheckOutPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         mainAdminTabPanel.addTab("Check in Check out", checkInCheckOutTabPanel);
 
-        adminInformationLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        adminInformationLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         adminInformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         adminInformationLabel.setText("Admin Information Panel");
 
@@ -228,6 +253,7 @@ public class AdminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adminInformationLabel;
     private javax.swing.JPanel adminOptionsTabPanel;
+    private javax.swing.JPanel checkInCheckOutPanelContainer;
     private javax.swing.JPanel checkInCheckOutTabPanel;
     private javax.swing.JPanel hallInformationPanelContainer;
     private javax.swing.JPanel hallInformationTabPanel;

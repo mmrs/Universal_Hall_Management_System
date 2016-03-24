@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import dbconnection.CreateConnection;
-import diningmanager.DinigManagerPanel;
+import diningmanager.DiningManagerPanel;
 import extra.Pair;
 import gatekeeper.*;
 
@@ -38,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
     LogInPanel loginPanel = null;
     AdminPanel adminPanel = null;
     GateKeeperPanel gateKeeperPanel = null;
-    DinigManagerPanel dinigManagerPanel = null;
+    DiningManagerPanel dinigManagerPanel = null;
     
     public MainFrame() {
         super("Universal Hall Management System  1.2");
@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         loginPanel = new LogInPanel(this);
         adminPanel = new AdminPanel(this);
         gateKeeperPanel = new GateKeeperPanel(this);
-        dinigManagerPanel = new DinigManagerPanel(this);
+        dinigManagerPanel = new DiningManagerPanel(this);
     }
     void makeCardLayoutReady(){
         cardLayout = new CardLayout();
@@ -139,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
         return adminPanel;
     }
 
-    void goDinigManagerPanel(String string) {
+    void goDiningManagerPanel(String string) {
        cardLayout.show(panelContainer,"DinigManagerPanel");
        dinigManagerPanel.setUserInformationLabel(string);
     

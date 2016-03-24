@@ -31,6 +31,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
      * Creates new form ShowStudentsMealData
      */
     public ShowStudentsMealData() {
+        super("Show Students Meal Data");
         initComponents();
     }
 

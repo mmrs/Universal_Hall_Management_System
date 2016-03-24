@@ -31,6 +31,7 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
      * Creates new form ViewStudentDueTable
      */
     public ViewStudentDueTable() {
+        super("Student Due Information");
         initComponents();
     }
 

@@ -29,7 +29,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Siyam
  */
-public class DinigManagerPanel extends javax.swing.JPanel {
+public class DiningManagerPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form DinigManagerPanel
@@ -37,12 +37,12 @@ public class DinigManagerPanel extends javax.swing.JPanel {
     DefaultTableModel tablemodel;
     private MainFrame frame;
 
-    public DinigManagerPanel() {
+    public DiningManagerPanel() {
         initComponents();
         //  tablemodel = (DefaultTableModel) MultipleEntryTable.getModel();
     }
 
-    public DinigManagerPanel(MainFrame aThis) {
+    public DiningManagerPanel(MainFrame aThis) {
         frame = aThis;
         initComponents();
         tablemodel = (DefaultTableModel) MultipleEntryTable.getModel();
@@ -531,9 +531,9 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                 
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_regNoTextFieldActionPerformed
@@ -630,9 +630,9 @@ public class DinigManagerPanel extends javax.swing.JPanel {
                                 totalCostLabel.setText("Total Cost :   " + cost);
 
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_regNoTextField2ActionPerformed
@@ -658,7 +658,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -674,7 +674,7 @@ public class DinigManagerPanel extends javax.swing.JPanel {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(DinigManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

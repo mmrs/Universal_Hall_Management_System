@@ -28,6 +28,7 @@ public class RemoveCompleteSession extends javax.swing.JFrame {
      * Creates new form RemoveCompleteSession
      */
     public RemoveCompleteSession() {
+        super("Remove Complete Session");
         initComponents();
     }
 

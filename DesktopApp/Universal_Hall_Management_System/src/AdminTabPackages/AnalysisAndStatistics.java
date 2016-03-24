@@ -9,12 +9,12 @@ package AdminTabPackages;
  *
  * @author Siyam
  */
-public class AdminOptionsPanel extends javax.swing.JPanel {
+public class AnalysisAndStatistics extends javax.swing.JPanel {
 
     /**
      * Creates new form AdminOptionsPanel
      */
-    public AdminOptionsPanel() {
+    public AnalysisAndStatistics() {
         initComponents();
     }
 

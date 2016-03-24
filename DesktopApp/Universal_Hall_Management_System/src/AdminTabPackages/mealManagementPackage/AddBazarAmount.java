@@ -144,6 +144,7 @@ public class AddBazarAmount extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         addButtonPressed();
+        this.dispose();
 
     }//GEN-LAST:event_addButtonActionPerformed
 
