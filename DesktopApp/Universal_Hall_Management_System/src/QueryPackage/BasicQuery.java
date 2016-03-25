@@ -86,7 +86,7 @@ public class BasicQuery {
         if (student.getRoom_number() == 0) {
             JOptionPane.showMessageDialog(null, "This student does not has a seat");
         }
-        String query = "INSERT INTO allocated "
+        String query = "INSERT INTO allocated(allocated.id,allocated.room_number) "
                 + "VALUES("
                 + student.getId() + "," + student.getRoom_number() + ")";
 
@@ -126,7 +126,7 @@ public class BasicQuery {
     public static void allocateASeatToStudent(Student st) {
 
         st.getId();
-        String query = "INSERT INTO allocated VALUES("
+        String query = "INSERT INTO allocated(allocated.id,allocated.room_number) VALUES("
                 + st.getId()
                 + ","
                 + st.getRoom_number()
@@ -168,7 +168,7 @@ public class BasicQuery {
         return result;
     }
 
-    public static void setMealRate(int rate, int year, int month) throws SQLException, ClassNotFoundException {
+    public static void setMealRate(double rate, int year, int month) throws SQLException, ClassNotFoundException {
 
         String yearMonthTime = BasicQuery.findYearMontyStartStringForMealQuery(year, month);
         System.out.println(yearMonthTime);
@@ -214,6 +214,27 @@ public class BasicQuery {
 
         return val;
 
+    }
+
+    public static double getCurrentMealRate(int year, int month) throws ClassNotFoundException, SQLException {
+        String start = findYearMontyStartStringForMealQuery(year, month);
+        String end = findYearMonthEndStringForMealQuery(year, month);
+
+        ResultSet resultSet = CreateConnection.getResultFromDatabase("select sum(quantity) from meal_log  where day_time>= '" + start
+                + "' AND day_time<='" + end + "'");
+        int totalMeal = 1;
+        int totalBazarAmount = 0;
+        if (resultSet.next()) {
+            totalMeal = resultSet.getInt(1);
+        }
+
+        resultSet = CreateConnection.getResultFromDatabase("select sum(amount) from bazar_info  where day_time>= '" + start
+                + "' AND day_time<='" + end + "'");
+        if (resultSet.next()) {
+            totalBazarAmount = resultSet.getInt(1);
+        }
+        if(totalMeal==0) return 0;
+        return ((double)totalBazarAmount) / totalMeal;
     }
 
     public static String findYearMontyStartStringForMealQuery(int year, int month) {
@@ -263,7 +284,7 @@ public class BasicQuery {
         return mealDue;
     }
 
-    public static void updateMealDueTable(ArrayList<MealDue> mealDues, int mealRate, int year, int month) {
+    public static void updateMealDueTable(ArrayList<MealDue> mealDues, double mealRate, int year, int month) {
         String yearMonth = findYearMontyStartStringForMealQuery(year, month);
         String query = "DELETE FROM meal_due_table WHERE meal_due_table.year_month = "
                 + "'" + yearMonth + "'";
@@ -476,8 +497,8 @@ public class BasicQuery {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
-    
-    public static void addToBazar(int user,int ammount,String comment){
+
+    public static void addToBazar(int user, int ammount, String comment) {
         String query = "INSERT INTO bazar_info (user_id, amount, comment) VALUES("
                 + user
                 + ","
@@ -485,11 +506,11 @@ public class BasicQuery {
                 + ",\""
                 + comment
                 + "\")";
-        
+
         CreateConnection.insertDatatoDatabase(query);
     }
-    
-    public static ResultSet getCurrentSeatInformation() throws ClassNotFoundException, SQLException{
+
+    public static ResultSet getCurrentSeatInformation() throws ClassNotFoundException, SQLException {
         String query = "SELECT p.id , p.student_name ,p.student_dept,p.student_session,"
                 + "hall_info.floor_number,p.room_number FROM "
                 + "(SELECT student_info.id,student_info.student_name,student_info.student_dept,"
@@ -498,5 +519,7 @@ public class BasicQuery {
                 + "p.room_number = hall_info.room_number;";
         return CreateConnection.getResultFromDatabase(query);
     }
+
+    
 
 }

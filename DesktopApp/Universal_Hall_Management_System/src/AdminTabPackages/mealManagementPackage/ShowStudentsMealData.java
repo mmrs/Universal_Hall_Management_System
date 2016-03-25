@@ -87,10 +87,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
 
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Name", "Department", "Session", "Meal Type", "Quantity", "Day Time"

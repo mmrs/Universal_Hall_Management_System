@@ -29,10 +29,7 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
         floorInformationTableContainer.setVisible(false);
     }
     
-    void readyButtonGroup(){
-        buttonGroup.add(boyRadioButton);
-        buttonGroup.add(girlRadioButton);
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,27 +40,12 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        hallNameLabel = new javax.swing.JLabel();
-        hallNameTexField = new javax.swing.JTextField();
-        hallTypeLabel = new javax.swing.JLabel();
-        boyRadioButton = new javax.swing.JRadioButton();
-        girlRadioButton = new javax.swing.JRadioButton();
         numberOfFloorLabel = new javax.swing.JLabel();
         numberOfFloorTextField = new javax.swing.JTextField();
         inputFloorDetailButton = new javax.swing.JButton();
         floorInformationTableContainer = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         floorInformationTabel = new javax.swing.JTable();
-
-        hallNameLabel.setText("Hall Name");
-
-        hallNameTexField.setText("Hall Name");
-
-        hallTypeLabel.setText("Hall Type");
-
-        boyRadioButton.setText("Boys");
-
-        girlRadioButton.setText("Girls");
 
         numberOfFloorLabel.setText("Number Of Floor");
 
@@ -140,34 +122,17 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
             .addComponent(floorInformationTableContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(numberOfFloorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hallTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hallNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(numberOfFloorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inputFloorDetailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(boyRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(girlRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(hallNameTexField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numberOfFloorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hallNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hallNameTexField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boyRadioButton)
-                    .addComponent(girlRadioButton)
-                    .addComponent(hallTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numberOfFloorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numberOfFloorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,7 +140,7 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
                 .addComponent(inputFloorDetailButton)
                 .addGap(18, 18, 18)
                 .addComponent(floorInformationTableContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -262,13 +227,8 @@ public class BasicHallInformationPanel extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton boyRadioButton;
     private javax.swing.JTable floorInformationTabel;
     private javax.swing.JPanel floorInformationTableContainer;
-    private javax.swing.JRadioButton girlRadioButton;
-    private javax.swing.JLabel hallNameLabel;
-    private javax.swing.JTextField hallNameTexField;
-    private javax.swing.JLabel hallTypeLabel;
     private javax.swing.JButton inputFloorDetailButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel numberOfFloorLabel;

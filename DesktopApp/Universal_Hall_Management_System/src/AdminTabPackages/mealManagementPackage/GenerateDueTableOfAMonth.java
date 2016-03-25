@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.Writer;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,9 +24,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Tahmid
  */
 public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
+
     int mealRate;
-    int year ;
+    int year;
     int month;
+
     /**
      * Creates new form GenerateDueTableOfAMonth
      */
@@ -181,34 +184,33 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
         // TODO add your handling code here:
         generateButtonFunction();
     }//GEN-LAST:event_generateButtonActionPerformed
-    
-    public void generateButtonFunction(){
+
+    public void generateButtonFunction() {
         mealRate = Integer.parseInt(mealRateTextField.getText().trim());
         year = yearChooser.getYear();
         month = monthChooser.getMonth();
         try {
             int prvMealRate = BasicQuery.getMealRate(year, month);
-            if(prvMealRate!=-1){
-                
-                int flag = JOptionPane.showConfirmDialog(this,BasicQuery.theMonth(month)+ " - "+ year+" Already has a meal rate of "+ prvMealRate +"\n"
-                        +"Press yes to update new meal rate to "+mealRate
+            if (prvMealRate != -1) {
+
+                int flag = JOptionPane.showConfirmDialog(this, BasicQuery.theMonth(month) + " - " + year + " Already has a meal rate of " + prvMealRate + "\n"
+                        + "Press yes to update new meal rate to " + mealRate
                         + ". Press no or cancel to view previous data.");
-                
-                if(flag == JOptionPane.NO_OPTION || flag == JOptionPane.CANCEL_OPTION){
+
+                if (flag == JOptionPane.NO_OPTION || flag == JOptionPane.CANCEL_OPTION) {
                     generateTable(prvMealRate, year, month);
                 }
             }
             BasicQuery.setMealRate(mealRate, year, month);
             generateTable(mealRate, year, month);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void mealRateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mealRateTextFieldActionPerformed
         // TODO add your handling code here:
         generateButtonFunction();
@@ -217,24 +219,46 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         try {
             // TODO add your handling code here:
-            new PdfTableWriter("Generated Due Table",dueTable,"Generated Due Table","All Information Is True");
+            new PdfTableWriter("Generated Due Table", dueTable, "Generated Due Table", "All Information Is True");
         } catch (DocumentException ex) {
             Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GenerateDueTableOfAMonth.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_printButtonActionPerformed
-    
-    public void generateTable(int mealRate,int year,int month) throws ClassNotFoundException, SQLException{
+
+    public void generateTable(int mealRate, int year, int month) throws ClassNotFoundException, SQLException {
         ArrayList<MealDue> mealDue = BasicQuery.getTotalMealDataOfAMonth(year, month);
         DefaultTableModel model = (DefaultTableModel) dueTable.getModel();
         model.setRowCount(0);
-        for(MealDue md : mealDue){
-            model.addRow(new Object[]{md.getId(),md.getTotal(),""+year+"-"+month,md.getTotal()*mealRate});
+        for (MealDue md : mealDue) {
+            model.addRow(new Object[]{md.getId(), md.getTotal(), "" + year + "-" + month, md.getTotal() * mealRate});
         }
         BasicQuery.updateMealDueTable(mealDue, mealRate, year, month);
     }
-    
+
+    public  static void updateMealDues() throws ClassNotFoundException, SQLException  {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        double mealRate = BasicQuery.getCurrentMealRate(year, month);
+        ArrayList<MealDue> mealDue = BasicQuery.getTotalMealDataOfAMonth(year, month);
+        BasicQuery.updateMealDueTable(mealDue, mealRate, year, month);
+        BasicQuery.setMealRate(mealRate, year, month);
+        month--;
+        if (month < 0) {
+            month = 11;
+            year--;
+        }
+       // JOptionPane.showMessageDialog(null, mealRate+"");
+        mealRate = BasicQuery.getCurrentMealRate(year, month);
+        mealDue = BasicQuery.getTotalMealDataOfAMonth(year,month);
+        BasicQuery.updateMealDueTable(mealDue, mealRate, year, month);
+        BasicQuery.setMealRate(mealRate, year, month);
+       // JOptionPane.showMessageDialog(null, mealRate+"");
+         
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dueTable;
     private javax.swing.JButton generateButton;

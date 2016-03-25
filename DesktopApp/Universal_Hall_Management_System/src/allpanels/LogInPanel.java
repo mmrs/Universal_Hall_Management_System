@@ -5,6 +5,7 @@
  */
 package allpanels;
 
+import UserInformation.CurrentUserInfo;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -171,6 +172,8 @@ public class LogInPanel extends javax.swing.JPanel {
 
             // JOptionPane.showMessageDialog(this, "type:" + resultSet.getString("user_type"));
             userType = resultSet.getString("user_type");
+            CurrentUserInfo.USER_NAME = userName;
+            CurrentUserInfo.USER_ID = Integer.parseInt(userType);
             logInAs(Integer.parseInt(userType));
         } else {
             JOptionPane.showMessageDialog(this, "Incorrect UserName OR Password!");
@@ -184,6 +187,7 @@ public class LogInPanel extends javax.swing.JPanel {
         if (type == 1) {
             parentFrame.goAdminPanel(resultSet.getString("full_name"));
             parentFrame.setTitle("Admin");
+            
         }
         else if(type ==2) {
             parentFrame.goGateKeeperPanel(resultSet.getString("full_name"));
