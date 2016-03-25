@@ -11,6 +11,9 @@ import AdminTabPackages.mealManagementPackage.ShowStudentsMealData;
 import AdminTabPackages.mealManagementPackage.ViewStudentDueTable;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -94,9 +97,16 @@ public class MealManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewStudentMealDataActionPerformed
 
     private void showDueTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDueTableButtonActionPerformed
-        // TODO add your handling code here:
-       ViewStudentDueTable frame =  new ViewStudentDueTable();
-        openFrame(frame);
+        try {
+            // TODO add your handling code here:
+            GenerateDueTableOfAMonth.updateMealDues();
+            ViewStudentDueTable frame =  new ViewStudentDueTable();
+            openFrame(frame);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MealManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MealManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_showDueTableButtonActionPerformed
 
     private void addBazarAmountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBazarAmountButtonActionPerformed
