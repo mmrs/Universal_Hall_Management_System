@@ -177,7 +177,7 @@ public class AnalysisAndStatisticsPanel extends javax.swing.JPanel {
         endDate.setCalendar(null);
         try {
             ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
-            PieChart_AWT demo = new PieChart_AWT("Meal Statistics",resultSet);
+            PieChart_AWT demo = new PieChart_AWT("Check IN/OUT Statistics",resultSet);
         
         demo.setSize(560, 367);
         RefineryUtilities.centerFrameOnScreen(demo);
@@ -214,7 +214,7 @@ public class AnalysisAndStatisticsPanel extends javax.swing.JPanel {
         endDate.setCalendar(null);
         try {
             ResultSet resultSet = CreateConnection.getResultFromDatabase(query);
-            PieChart_AWT demo = new PieChart_AWT("Meal Statistics",resultSet);
+            PieChart_AWT demo = new PieChart_AWT("Seat Allocation",resultSet);
         
         demo.setSize(560, 367);
         RefineryUtilities.centerFrameOnScreen(demo);

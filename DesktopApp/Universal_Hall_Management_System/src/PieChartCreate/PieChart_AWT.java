@@ -24,9 +24,12 @@ import org.jfree.ui.RefineryUtilities;
  * @author Siyam
  */
 public class PieChart_AWT extends JFrame{
+    
+    static String title;
     public PieChart_AWT( String title,ResultSet resultSet ) 
    {
       super( title ); 
+      this.title = title;
       setContentPane(createDemoPanel(resultSet ));
       this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
      
@@ -49,7 +52,7 @@ public class PieChart_AWT extends JFrame{
    private static JFreeChart createChart( PieDataset dataset )
    {
       JFreeChart chart = ChartFactory.createPieChart(      
-         "Mobile Sales",  // chart title 
+         "Department Wise " + title,  // chart title 
          dataset,        // data    
          true,           // include legend   
          true, 
