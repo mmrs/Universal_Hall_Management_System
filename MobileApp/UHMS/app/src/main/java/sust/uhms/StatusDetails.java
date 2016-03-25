@@ -2,6 +2,7 @@ package sust.uhms;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,7 +68,10 @@ public class StatusDetails extends AppCompatActivity {
                                 scroll.setVisibility(View.VISIBLE);
                                 if (jsonObject.getString("type").equals("OUT")) {
 
-                                    linearstatus.setBackgroundDrawable(getDrawable(R.drawable.red));
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        linearstatus.setBackgroundDrawable(getDrawable(R.drawable.red));
+                                    }
 
                                 }
                                 progressView.setVisibility(View.GONE);

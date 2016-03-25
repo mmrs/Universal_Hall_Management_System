@@ -25,7 +25,7 @@
               <Component id="jLabel2" min="-2" pref="97" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="endDate" min="-2" pref="116" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="273" max="32767" attributes="0"/>

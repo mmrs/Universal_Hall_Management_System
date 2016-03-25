@@ -130,8 +130,8 @@ public class LogInPanel extends javax.swing.JPanel {
                         .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(258, 258, 258))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(67, 67, 67))))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +187,7 @@ public class LogInPanel extends javax.swing.JPanel {
        aboutJFrame about = new aboutJFrame();
        about.setVisible(true);
        about.setResizable(false);
-        RefineryUtilities.centerFrameOnScreen(about);
+      RefineryUtilities.centerFrameOnScreen(about);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void logInFunction(String userName, String password) throws ClassNotFoundException, SQLException {
