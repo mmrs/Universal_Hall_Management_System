@@ -7,5 +7,5 @@
 /DesktopApp/Universal_Hall_Management_System/nbdist/
 /DesktopApp/Universal_Hall_Management_System/nbactions.xml
 /DesktopApp/Universal_Hall_Management_System/nb-configuration.xml
-
+/DesktopApp/Universal_Hall_Management_System/src/dbconnection/CreateConnection.java
 /ServletAPI/Universal_Hall_Management_System_api/dist/
