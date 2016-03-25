@@ -24,7 +24,7 @@ public class CreateConnection {
         try {
             System.out.println(query);
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/uhms?user=root&password=");
+            Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.101:3306/uhms?user=mmrs&password=");
             java.sql.Statement st = con.createStatement();
             System.out.println("connection established successfully...!!\n");
 
@@ -42,7 +42,7 @@ public class CreateConnection {
         try {
             System.out.println(query);
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/uhms?user=root&password=");
+            Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.101:3306/uhms?user=mmrs&password=");
             java.sql.Statement st = con.createStatement();
             st.execute(query);
             System.out.println("connection established successfully...!!\n");
