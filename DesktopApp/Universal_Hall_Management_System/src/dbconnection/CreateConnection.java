@@ -37,7 +37,7 @@ public class CreateConnection {
         }
         return null;
 
-    }
+    };
      public static void insertDatatoDatabase(String query){
         try {
             System.out.println(query);

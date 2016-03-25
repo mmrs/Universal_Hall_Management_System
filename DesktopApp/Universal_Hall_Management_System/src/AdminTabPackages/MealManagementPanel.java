@@ -36,7 +36,6 @@ public class MealManagementPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         viewStudentMealData = new javax.swing.JButton();
-        generateDueTablebutton = new javax.swing.JButton();
         showDueTableButton = new javax.swing.JButton();
         addBazarAmountButton = new javax.swing.JButton();
 
@@ -46,13 +45,6 @@ public class MealManagementPanel extends javax.swing.JPanel {
         viewStudentMealData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewStudentMealDataActionPerformed(evt);
-            }
-        });
-
-        generateDueTablebutton.setText("Generate Due Table Of A Month");
-        generateDueTablebutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateDueTablebuttonActionPerformed(evt);
             }
         });
 
@@ -77,33 +69,23 @@ public class MealManagementPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(214, 214, 214)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addBazarAmountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewStudentMealData, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(generateDueTablebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addBazarAmountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(showDueTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(90, 90, 90)
                 .addComponent(addBazarAmountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addComponent(viewStudentMealData, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(generateDueTablebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addComponent(showDueTableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void generateDueTablebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDueTablebuttonActionPerformed
-        // TODO add your handling code here:
-        GenerateDueTableOfAMonth frame = new GenerateDueTableOfAMonth();
-        openFrame(frame);
-        
-    }//GEN-LAST:event_generateDueTablebuttonActionPerformed
 
     private void viewStudentMealDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStudentMealDataActionPerformed
         // TODO add your handling code here:
@@ -133,7 +115,6 @@ public class MealManagementPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBazarAmountButton;
-    private javax.swing.JButton generateDueTablebutton;
     private javax.swing.JButton showDueTableButton;
     private javax.swing.JButton viewStudentMealData;
     // End of variables declaration//GEN-END:variables

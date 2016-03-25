@@ -5,6 +5,7 @@
  */
 package allpanels;
 
+import UserInformation.CurrentUserInfo;
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -73,9 +74,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
    
    public void goAdminPanel(String userName){
-     //  System.out.println("hello wold");
+     
        cardLayout.show(panelContainer, "AdminPanel");
        adminPanel.setUserInformationLabel(userName);
+      if(CurrentUserInfo.USER_NAME.equals("admin")==false)
+        adminPanel.setHallInfoPanelDisable();
+       
    }
    
    public void goGateKeeperPanel(String userName){

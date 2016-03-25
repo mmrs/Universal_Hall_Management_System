@@ -24,9 +24,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="addBazarAmountButton" min="-2" pref="233" max="-2" attributes="0"/>
                   <Component id="viewStudentMealData" min="-2" pref="233" max="-2" attributes="0"/>
-                  <Component id="generateDueTablebutton" min="-2" pref="233" max="-2" attributes="0"/>
+                  <Component id="addBazarAmountButton" min="-2" pref="233" max="-2" attributes="0"/>
                   <Component id="showDueTableButton" min="-2" pref="233" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="245" max="32767" attributes="0"/>
@@ -36,15 +35,13 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Component id="addBazarAmountButton" min="-2" pref="31" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="viewStudentMealData" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="generateDueTablebutton" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="showDueTableButton" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace pref="159" max="32767" attributes="0"/>
+              <EmptySpace pref="138" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,14 +53,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewStudentMealDataActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="generateDueTablebutton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Generate Due Table Of A Month"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateDueTablebuttonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="showDueTableButton">

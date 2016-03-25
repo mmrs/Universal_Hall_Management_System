@@ -616,12 +616,15 @@ public class DiningManagerPanel extends javax.swing.JPanel {
                 //calculate meal rate
                 resultSet = CreateConnection.getResultFromDatabase("select sum(quantity) from meal_log  where day_time>= '" + start
                         + "' AND day_time<='" + end + "'");
-                resultSet.next();
-                int totalMeal = resultSet.getInt(1);
+                int totalMeal = 1;
+                int totalBazarAmount = 0;
+                if(resultSet.next())
+                 totalMeal = resultSet.getInt(1);
+                
                  resultSet = CreateConnection.getResultFromDatabase("select sum(amount) from bazar_info  where day_time>= '" + start
                         + "' AND day_time<='" + end + "'");
-                 resultSet.next();
-                int totalBazarAmount = resultSet.getInt(1);
+                 if(resultSet.next())
+                    totalBazarAmount = resultSet.getInt(1);
                 mealRateLabel.setText("Current Month Meal Rate :  " + (double)totalBazarAmount/totalMeal);
                 Double cost = Double.parseDouble("" + quantity1.getText());
                                 cost +=  Double.parseDouble("" + quantity2.getText());

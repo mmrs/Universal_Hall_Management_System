@@ -91,10 +91,7 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
 
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Name", "Department", "Session", "Total Meal", "Total_Due", "Year/ Month"
