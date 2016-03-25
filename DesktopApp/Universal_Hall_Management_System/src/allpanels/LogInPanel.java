@@ -187,6 +187,7 @@ public class LogInPanel extends javax.swing.JPanel {
        aboutJFrame about = new aboutJFrame();
        about.setVisible(true);
        about.setResizable(false);
+       
       RefineryUtilities.centerFrameOnScreen(about);
     }//GEN-LAST:event_jButton1ActionPerformed
 
