@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  */
 public class StaticData {
     
-    public static String phone=null,password=null;
+    public static String phone=null,password=null,newPassword=null;
     public static ResultSet  resultSet =  null;
     public static String id;
         

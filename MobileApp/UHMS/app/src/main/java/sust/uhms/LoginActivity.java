@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = mPasswordView.getText().toString();
                 if(phone.isEmpty() || password.isEmpty()){
 
-                    Toast toast = Toast.makeText(LoginActivity.this,"Check username or password",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(LoginActivity.this,"",Toast.LENGTH_SHORT);
                     toast.setGravity(BIND_ABOVE_CLIENT, -0, -100);
                     toast.setText("check phone no or password");
                     toast.show();

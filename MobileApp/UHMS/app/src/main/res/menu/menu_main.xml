@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.studio_e.ledtorch.MainActivity">
+    <item
+        android:id="@+id/changepassword"
+        android:orderInCategory="100"
+        android:title="ChangePassWord"
+        android:icon="@drawable/ic_settings_24dp"
+        app:showAsAction="always" />
+
+</menu>

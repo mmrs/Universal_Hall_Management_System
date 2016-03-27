@@ -8,6 +8,10 @@
         <servlet-name>CheckHallStatus</servlet-name>
         <servlet-class>CheckHallStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>ChangePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>logInAuthentication</servlet-name>
         <url-pattern>/logInAuthentication</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>CheckHallStatus</servlet-name>
         <url-pattern>/CheckHallStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
