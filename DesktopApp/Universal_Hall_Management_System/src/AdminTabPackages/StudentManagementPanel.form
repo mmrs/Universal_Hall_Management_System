@@ -20,13 +20,11 @@
               <EmptySpace min="-2" pref="215" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButton1" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="addStudentFromDatabaseButton" max="32767" attributes="0"/>
-                      <Component id="removeStudentCompletSeason" alignment="0" max="32767" attributes="0"/>
-                      <Component id="removeSingleStudentButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="addSingleStudentButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="viewStudentInformation" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="addStudentFromDatabaseButton" max="32767" attributes="0"/>
+                  <Component id="removeStudentCompletSeason" alignment="0" max="32767" attributes="0"/>
+                  <Component id="removeSingleStudentButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="addSingleStudentButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="viewStudentInformation" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="194" max="32767" attributes="0"/>
           </Group>

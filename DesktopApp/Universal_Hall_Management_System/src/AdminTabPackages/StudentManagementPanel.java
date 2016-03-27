@@ -357,7 +357,11 @@ public class StudentManagementPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         StudentInfo info = new StudentInfo();
-        openFrame(info);
+          info.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dim.getWidth() - info.getWidth()) / 2);
+        int y = 100;
+        info.setLocation(x, y);
         
     }//GEN-LAST:event_jButton1ActionPerformed
     public void openFrame(JFrame frame) {

@@ -44,7 +44,8 @@ public class StudentInfo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Reg No: ");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Search by Reg No: ");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,15 +71,15 @@ public class StudentInfo extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(viewButton)
                 .addGap(73, 73, 73))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,8 +91,8 @@ public class StudentInfo extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -127,10 +128,11 @@ public class StudentInfo extends javax.swing.JFrame {
         // TODO add your handling code here:
            try {
             // TODO add your handling code here:
-            ResultSet resultSet = CreateConnection.getResultFromDatabase("select DISTINCT(student_info.id),student_info.student_name,"
+            ResultSet resultSet = CreateConnection.getResultFromDatabase("select DISTINCT(student_gardian_relation.student_id),student_info.student_name,"
                     + "student_info.student_dept,student_info.student_session,student_info.student_phone,"
-                    +"student_info.student_email,gardian_info.id,gardian_info.gardian_name,student_gardian_relation.relation," 
-                    +"gardian_info.gardian_email FROM student_info,gardian_info,student_gardian_relation");
+                    +"student_info.student_email,student_gardian_relation.gardian_id,gardian_info.gardian_name,student_gardian_relation.relation," 
+                    +"gardian_info.gardian_email FROM student_info,gardian_info,student_gardian_relation"
+                    + " where gardian_info.id =student_gardian_relation.gardian_id AND student_gardian_relation.student_id = student_info.id");
             
             studentInfoTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
             
