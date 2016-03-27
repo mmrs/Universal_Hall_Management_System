@@ -25,6 +25,7 @@ public class StudentInfo extends javax.swing.JFrame {
      */
     public StudentInfo() {
         initComponents();
+        viewALL();
     }
 
     /**
@@ -42,7 +43,7 @@ public class StudentInfo extends javax.swing.JFrame {
         studentInfoTable = new javax.swing.JTable();
         viewButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Search by Reg No: ");
@@ -99,49 +100,83 @@ public class StudentInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-     
+
         TableModel model = studentInfoTable.getModel();
-             try {
+        try {
             // TODO add your handling code here:
             String regNo = jTextField1.getText();
-             for(int i=0;i<model.getRowCount();i++){
-                 
-               //  System.out.println(tablemodel.getValueAt(i, 0));
-                 if((model.getValueAt(i,0).toString()).equals(regNo)){
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                //  System.out.println(tablemodel.getValueAt(i, 0));
+                if ((model.getValueAt(i, 0).toString()).equals(regNo)) {
                 //     System.out.println("matched");
-                  //   MultipleEntryTable.setSelectionBackground(Color.MAGENTA);
-                     studentInfoTable.clearSelection();
-                     studentInfoTable.addRowSelectionInterval(i,i);
-                     break;
-                 }
+                    //   MultipleEntryTable.setSelectionBackground(Color.MAGENTA);
+                    studentInfoTable.clearSelection();
+                    studentInfoTable.addRowSelectionInterval(i, i);
+                    break;
+                }
             }
 
         } catch (Exception ex) {
             Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
+
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    public void view() {
+        TableModel model = studentInfoTable.getModel();
+        try {
+            // TODO add your handling code here:
+            String regNo = jTextField1.getText();
+            for (int i = 0; i < model.getRowCount(); i++) {
+
+                //  System.out.println(tablemodel.getValueAt(i, 0));
+                if ((model.getValueAt(i, 0).toString()).equals(regNo)) {
+                //     System.out.println("matched");
+                    //   MultipleEntryTable.setSelectionBackground(Color.MAGENTA);
+                    studentInfoTable.clearSelection();
+                    studentInfoTable.addRowSelectionInterval(i, i);
+                    break;
+                }
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         // TODO add your handling code here:
-           try {
+        try {
             // TODO add your handling code here:
             ResultSet resultSet = CreateConnection.getResultFromDatabase("select DISTINCT(student_gardian_relation.student_id),student_info.student_name,"
                     + "student_info.student_dept,student_info.student_session,student_info.student_phone,"
-                    +"student_info.student_email,student_gardian_relation.gardian_id,gardian_info.gardian_name,student_gardian_relation.relation," 
-                    +"gardian_info.gardian_email FROM student_info,gardian_info,student_gardian_relation"
+                    + "student_info.student_email,student_gardian_relation.gardian_id,gardian_info.gardian_name,student_gardian_relation.relation,"
+                    + "gardian_info.gardian_email FROM student_info,gardian_info,student_gardian_relation"
                     + " where gardian_info.id =student_gardian_relation.gardian_id AND student_gardian_relation.student_id = student_info.id");
-            
+
             studentInfoTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
-            
-        
-        }catch (Exception ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(StudentInfo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_viewButtonActionPerformed
+   public void viewALL(){
+         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ResultSet resultSet = CreateConnection.getResultFromDatabase("select DISTINCT(student_gardian_relation.student_id),student_info.student_name,"
+                    + "student_info.student_dept,student_info.student_session,student_info.student_phone,"
+                    + "student_info.student_email,student_gardian_relation.gardian_id,gardian_info.gardian_name,student_gardian_relation.relation,"
+                    + "gardian_info.gardian_email FROM student_info,gardian_info,student_gardian_relation"
+                    + " where gardian_info.id =student_gardian_relation.gardian_id AND student_gardian_relation.student_id = student_info.id");
 
+            studentInfoTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
+
+        } catch (Exception ex) {
+            Logger.getLogger(StudentInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
     /**
      * @param args the command line arguments
      */
