@@ -33,6 +33,8 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
     public ViewStudentDueTable() {
         super("Student Due Information");
         initComponents();
+        viewAllDateCheckBox.setSelected(true);
+         viewButtonPressed();
     }
 
     /**

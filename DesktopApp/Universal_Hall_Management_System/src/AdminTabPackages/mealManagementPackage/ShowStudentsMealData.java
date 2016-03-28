@@ -33,6 +33,9 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     public ShowStudentsMealData() {
         super("Show Students Meal Data");
         initComponents();
+        allDateCheckBox.setSelected(true);
+         viewButtonPressed();
+        
     }
 
     /**
@@ -59,7 +62,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         startDate = new com.toedter.calendar.JDateChooser();
         endDate = new com.toedter.calendar.JDateChooser();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        allDateCheckBox = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         regNoTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -138,15 +141,15 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Leave Field Empty If You Want To View All Data");
 
-        jCheckBox1.setText("Check It To View All Date");
-        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+        allDateCheckBox.setText("Check It To View All Date");
+        allDateCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jCheckBox1StateChanged(evt);
+                allDateCheckBoxStateChanged(evt);
             }
         });
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        allDateCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                allDateCheckBoxActionPerformed(evt);
             }
         });
 
@@ -208,7 +211,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 17, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(allDateCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(148, 148, 148)))
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,7 +230,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCheckBox1)
+                .addComponent(allDateCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
@@ -286,6 +289,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         viewButtonPressed();
+        
 
     }//GEN-LAST:event_viewButtonActionPerformed
 
@@ -324,21 +328,21 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         }
 
     }
-    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
+    private void allDateCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_allDateCheckBoxStateChanged
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jCheckBox1StateChanged
+    }//GEN-LAST:event_allDateCheckBoxStateChanged
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void allDateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allDateCheckBoxActionPerformed
         // TODO add your handling code here:
-        if (jCheckBox1.isSelected()) {
+        if (allDateCheckBox.isSelected()) {
             startDate.setEnabled(false);
             endDate.setEnabled(false);
         } else {
             startDate.setEnabled(true);
             endDate.setEnabled(true);
         }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_allDateCheckBoxActionPerformed
 
     private void regNoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regNoTextFieldKeyTyped
         // TODO add your handling code here:
@@ -348,7 +352,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_regNoTextFieldKeyTyped
     public String timeString() {
-        if (jCheckBox1.isSelected()) {
+        if (allDateCheckBox.isSelected()) {
             return "";
         } else {
             Calendar start = startDate.getCalendar();
@@ -369,7 +373,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }//GEN-LAST:event_printButtonActionPerformed
 
     public void viewAllData() throws ClassNotFoundException, SQLException {
-        if (jCheckBox1.isSelected() == false) {
+        if (allDateCheckBox.isSelected() == false) {
             Calendar start = startDate.getCalendar();
             Calendar end = endDate.getCalendar();
             if (start == null || end == null) {
@@ -388,7 +392,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }
 
     public void viewDataWithASession(int session) throws SQLException, ClassNotFoundException {
-        if (jCheckBox1.isSelected() == false) {
+        if (allDateCheckBox.isSelected() == false) {
             Calendar start = startDate.getCalendar();
             Calendar end = endDate.getCalendar();
             if (start == null || end == null) {
@@ -408,7 +412,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }
 
     public void viewDataWithADepartment(String dept) throws SQLException, ClassNotFoundException {
-        if (jCheckBox1.isSelected() == false) {
+        if (allDateCheckBox.isSelected() == false) {
             Calendar start = startDate.getCalendar();
             Calendar end = endDate.getCalendar();
             if (start == null || end == null) {
@@ -428,7 +432,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }
 
     public void viewDataWithADepartmentAndSession(String dept, int session) throws SQLException, ClassNotFoundException {
-        if (jCheckBox1.isSelected() == false) {
+        if (allDateCheckBox.isSelected() == false) {
             Calendar start = startDate.getCalendar();
             Calendar end = endDate.getCalendar();
             if (start == null || end == null) {
@@ -448,7 +452,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }
 
     public void viewDataForAStudent(int id) throws SQLException, ClassNotFoundException {
-        if (jCheckBox1.isSelected() == false) {
+        if (allDateCheckBox.isSelected() == false) {
             Calendar start = startDate.getCalendar();
             Calendar end = endDate.getCalendar();
             if (start == null || end == null) {
@@ -479,10 +483,10 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox allDateCheckBox;
     private javax.swing.JTextField deptTextField;
     private com.toedter.calendar.JDateChooser endDate;
     private javax.swing.JTable infoTable;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

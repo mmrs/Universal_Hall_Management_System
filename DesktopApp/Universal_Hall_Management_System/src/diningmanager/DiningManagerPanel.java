@@ -10,6 +10,8 @@ import dbconnection.CreateConnection;
 import gatekeeper.GateKeeperPanel;
 import gatekeeper.TableModelGateKeeperViewEntry;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -36,7 +38,9 @@ public class DiningManagerPanel extends javax.swing.JPanel {
      */
     DefaultTableModel tablemodel;
     private MainFrame frame;
-
+    int fBreakfast = 0;
+    int fLunch = 0;
+    int fDinner = 0;
     public DiningManagerPanel() {
         initComponents();
         //  tablemodel = (DefaultTableModel) MultipleEntryTable.getModel();
@@ -46,7 +50,45 @@ public class DiningManagerPanel extends javax.swing.JPanel {
         frame = aThis;
         initComponents();
         tablemodel = (DefaultTableModel) MultipleEntryTable.getModel();
+        multipleStudentEntryReloadButtonPressed();
+        mealTableEvent();
+
     }
+
+    public void mealTableEvent() {
+        MultipleEntryTable.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                int index = MultipleEntryTable.convertColumnIndexToModel(MultipleEntryTable.columnAtPoint(mouseEvent.getPoint()));
+                if (index>=1&&index<=3) {
+                    System.out.println("Clicked on column " + index);
+                    
+                }
+                if(index==1){
+                    setAllRowSelected(index, fBreakfast);
+                    fBreakfast =  fBreakfast^1;
+                }else if(index==2){
+                    setAllRowSelected(index, fLunch);
+                    fLunch =  fLunch^1;
+                }else if(index==3){
+                    setAllRowSelected(index, fDinner);
+                    fDinner =  fDinner^1;
+                }
+            }
+        });
+    }
+    void setAllRowSelected(int index,int flag){
+        if(flag==0){
+            for(int i = 0;i<MultipleEntryTable.getRowCount();i++){
+                MultipleEntryTable.setValueAt(true, i, index);
+            }
+        }else{
+            for(int i = 0;i<MultipleEntryTable.getRowCount();i++){
+                MultipleEntryTable.setValueAt(false, i, index);
+            }
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,6 +120,7 @@ public class DiningManagerPanel extends javax.swing.JPanel {
         MultipleEntryTable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         searchEntryTextField = new javax.swing.JTextField();
@@ -120,6 +163,12 @@ public class DiningManagerPanel extends javax.swing.JPanel {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
             }
         });
 
@@ -241,7 +290,6 @@ public class DiningManagerPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        MultipleEntryTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(MultipleEntryTable);
 
         jButton3.setText("Reload");
@@ -258,6 +306,9 @@ public class DiningManagerPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel9.setText("Select a column name to select or disselect all");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -270,14 +321,17 @@ public class DiningManagerPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(37, 37, 37))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(269, 269, 269))
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +344,11 @@ public class DiningManagerPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -528,7 +586,7 @@ public class DiningManagerPanel extends javax.swing.JPanel {
             } else {
                 studentName2.setText("Student Not Found On DataBase");
                 jButton2.setEnabled(false);
-                
+
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -540,6 +598,11 @@ public class DiningManagerPanel extends javax.swing.JPanel {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
+
+        viewLogRefreshButton();
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    public void viewLogRefreshButton() {
         try {
             // TODO add your handling code here:
             resultSet = CreateConnection.getResultFromDatabase("select * from meal_log ORDER BY DAY_TIME DESC");
@@ -549,8 +612,7 @@ public class DiningManagerPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_refreshButtonActionPerformed
+    }
 
     private void searchEntryTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchEntryTextFieldActionPerformed
         // TODO add your handling code here
@@ -612,25 +674,27 @@ public class DiningManagerPanel extends javax.swing.JPanel {
                 } else {
                     quantity3.setText("00");
                 }
-                
+
                 //calculate meal rate
                 resultSet = CreateConnection.getResultFromDatabase("select sum(quantity) from meal_log  where day_time>= '" + start
                         + "' AND day_time<='" + end + "'");
                 int totalMeal = 1;
                 int totalBazarAmount = 0;
-                if(resultSet.next())
-                 totalMeal = resultSet.getInt(1);
-                
-                 resultSet = CreateConnection.getResultFromDatabase("select sum(amount) from bazar_info  where day_time>= '" + start
+                if (resultSet.next()) {
+                    totalMeal = resultSet.getInt(1);
+                }
+
+                resultSet = CreateConnection.getResultFromDatabase("select sum(amount) from bazar_info  where day_time>= '" + start
                         + "' AND day_time<='" + end + "'");
-                 if(resultSet.next())
+                if (resultSet.next()) {
                     totalBazarAmount = resultSet.getInt(1);
-                mealRateLabel.setText("Current Month Meal Rate :  " + (double)totalBazarAmount/totalMeal);
+                }
+                mealRateLabel.setText("Current Month Meal Rate :  " + (double) totalBazarAmount / totalMeal);
                 Double cost = Double.parseDouble("" + quantity1.getText());
-                                cost +=  Double.parseDouble("" + quantity2.getText());
-                                cost +=  Double.parseDouble("" + quantity3.getText());
-                                cost*= (double)totalBazarAmount/totalMeal;
-                                totalCostLabel.setText("Total Cost :   " + cost);
+                cost += Double.parseDouble("" + quantity2.getText());
+                cost += Double.parseDouble("" + quantity3.getText());
+                cost *= (double) totalBazarAmount / totalMeal;
+                totalCostLabel.setText("Total Cost :   " + cost);
 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -648,16 +712,16 @@ public class DiningManagerPanel extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             String regNo = regNoTextFieldInMultipleStudentEntry.getText();
-             for(int i=0;i<tablemodel.getRowCount();i++){
-                 
-               //  System.out.println(tablemodel.getValueAt(i, 0));
-                 if((tablemodel.getValueAt(i,0).toString()).equals(regNo)){
-                //     System.out.println("matched");
-                  //   MultipleEntryTable.setSelectionBackground(Color.MAGENTA);
-                     MultipleEntryTable.clearSelection();
-                     MultipleEntryTable.addRowSelectionInterval(i,i);
-                     break;
-                 }
+            for (int i = 0; i < tablemodel.getRowCount(); i++) {
+
+                //  System.out.println(tablemodel.getValueAt(i, 0));
+                if ((tablemodel.getValueAt(i, 0).toString()).equals(regNo)) {
+                    //     System.out.println("matched");
+                    //   MultipleEntryTable.setSelectionBackground(Color.MAGENTA);
+                    MultipleEntryTable.clearSelection();
+                    MultipleEntryTable.addRowSelectionInterval(i, i);
+                    break;
+                }
             }
 
         } catch (Exception ex) {
@@ -668,35 +732,42 @@ public class DiningManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_regNoTextFieldInMultipleStudentEntryActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
+        multipleStudentEntryReloadButtonPressed();
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    public void multipleStudentEntryReloadButtonPressed(){
+           try {
             // TODO add your handling code here:
             resultSet = CreateConnection.getResultFromDatabase("select DISTINCT(id) from student_info");
             tablemodel.setRowCount(0);
             for (int i = 0; resultSet.next(); i++) {
-                tablemodel.addRow(new Object[]{resultSet.getInt(1),false,false,false});
+                tablemodel.addRow(new Object[]{resultSet.getInt(1), false, false, false});
             }
 
         } catch (Exception ex) {
             Logger.getLogger(DiningManagerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         try {
-            for(int i=0;i<tablemodel.getRowCount();i++){
+            for (int i = 0; i < tablemodel.getRowCount(); i++) {
                 boolean flag;
-                flag = (boolean) tablemodel.getValueAt(i,1);
-                if(flag)
-                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i,0) + ",'" + tablemodel.getColumnName(1) + "',1)");
-                flag = (boolean) tablemodel.getValueAt(i,2);
-                if(flag)
-                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i,0) + ",'" + tablemodel.getColumnName(2) + "',1)");
-                flag = (boolean) tablemodel.getValueAt(i,3);
-                if(flag)
-                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i,0) + ",'" + tablemodel.getColumnName(3) + "',1)");
+                flag = (boolean) tablemodel.getValueAt(i, 1);
+                if (flag) {
+                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i, 0) + ",'" + tablemodel.getColumnName(1) + "',1)");
+                }
+                flag = (boolean) tablemodel.getValueAt(i, 2);
+                if (flag) {
+                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i, 0) + ",'" + tablemodel.getColumnName(2) + "',1)");
+                }
+                flag = (boolean) tablemodel.getValueAt(i, 3);
+                if (flag) {
+                    CreateConnection.insertDatatoDatabase("insert into meal_log (id,type,quantity ) values(" + tablemodel.getValueAt(i, 0) + ",'" + tablemodel.getColumnName(3) + "',1)");
+                }
             }
             tablemodel.setRowCount(0);
         } catch (Exception e) {
@@ -705,6 +776,13 @@ public class DiningManagerPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        // TODO add your handling code here:
+        if (logTable.getRowCount() == 0) {
+            viewLogRefreshButton();
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -722,6 +800,7 @@ public class DiningManagerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

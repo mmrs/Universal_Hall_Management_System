@@ -20,6 +20,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author Siyam
@@ -72,6 +73,12 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         loggedInAsLabel = new javax.swing.JLabel();
 
         label1.setText("label1");
+
+        ViewInfoTab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ViewInfoTabStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Enter Reg No :");
 
@@ -255,8 +262,8 @@ public class GateKeeperPanel extends javax.swing.JPanel {
 
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
         // TODO add your handling code here:
-        
-        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,`type`) VALUES("+regNo+",'OUT')");
+
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id,`type`) VALUES(" + regNo + ",'OUT')");
         checkOutButton.setEnabled(false);
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
@@ -264,74 +271,87 @@ public class GateKeeperPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         regNo = evt.getActionCommand();
         System.out.println(regNo);
-        if(regNo.length() !=10){
-            JOptionPane.showMessageDialog(this, "Incorrect Registration No Format","Error!",WIDTH);
+        if (regNo.length() != 10) {
+            JOptionPane.showMessageDialog(this, "Incorrect Registration No Format", "Error!", WIDTH);
             return;
         }
         checkInButton.setEnabled(true);
         checkOutButton.setEnabled(true);
         try {
-            resultSet = CreateConnection.getResultFromDatabase("select student_name from student_info where id=" + regNo +"");
-            if(resultSet.next())
-            studentName.setText(resultSet.getString("student_name"));
-            else {
+            resultSet = CreateConnection.getResultFromDatabase("select student_name from student_info where id=" + regNo + "");
+            if (resultSet.next()) {
+                studentName.setText(resultSet.getString("student_name"));
+            } else {
                 studentName.setText("Student Not Found On DataBase");
-            checkInButton.setEnabled(false);
-            checkOutButton.setEnabled(false);
+                checkInButton.setEnabled(false);
+                checkOutButton.setEnabled(false);
             }
-                
-            resultSet = CreateConnection.getResultFromDatabase("select `type` from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo +")");
+
+            resultSet = CreateConnection.getResultFromDatabase("select `type` from check_in_out where day_time = (select max(day_time) from check_in_out where id=" + regNo + ")");
             resultSet.next();
             String type = resultSet.getString("type");
-            if(type.equals("IN")){
+            if (type.equals("IN")) {
                 checkInButton.setEnabled(false);
+            } else {
+                checkOutButton.setEnabled(false);
             }
-            else checkOutButton.setEnabled(false);
         } catch (SQLException ex) {
-            
+
             checkOutButton.setEnabled(false);
             checkInButton.setEnabled(true);
-          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+            //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-           // Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_getRegNoTextFieldActionPerformed
 
     private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInButtonActionPerformed
         // TODO add your handling code here:
-        CreateConnection.insertDatatoDatabase("insert into check_in_out(id) VALUES("+regNo +")");
+        CreateConnection.insertDatatoDatabase("insert into check_in_out(id) VALUES(" + regNo + ")");
         checkInButton.setEnabled(false);
     }//GEN-LAST:event_checkInButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+
+        refreshButtonPressed();
+
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    public void refreshButtonPressed() {
+
         try {
             // TODO add your handling code here:
             resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out ORDER BY DAY_TIME DESC");
             logTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
         } catch (ClassNotFoundException ex) {
-          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+            //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-          //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
+            //  Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    }//GEN-LAST:event_refreshButtonActionPerformed
+    }
 
     private void SearchInEntryViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchInEntryViewActionPerformed
         // TODO add your handling code here:
-          try {
+        try {
             // TODO add your handling code here:
-            resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out WHERE id = "+ SearchInEntryView.getText()  +" ORDER BY DAY_TIME DESC");
+            resultSet = CreateConnection.getResultFromDatabase("select * from check_in_out WHERE id = " + SearchInEntryView.getText() + " ORDER BY DAY_TIME DESC");
             logTable.setModel(TableModelGateKeeperViewEntry.resultSetToTableModel(resultSet));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(GateKeeperPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }//GEN-LAST:event_SearchInEntryViewActionPerformed
+
+    private void ViewInfoTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ViewInfoTabStateChanged
+        // TODO add your handling code here:
+        if (logTable.getRowCount() == 0) {
+            refreshButtonPressed();
+        }
+    }//GEN-LAST:event_ViewInfoTabStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,6 +381,6 @@ public class GateKeeperPanel extends javax.swing.JPanel {
 
     public void setUserInformationLabel(String userName) {
         loggedInAsLabel.setText("Logged In As: " + userName + " [GateKeeper]");
-      
+
     }
 }
