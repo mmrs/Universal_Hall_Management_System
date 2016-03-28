@@ -34,6 +34,7 @@ public class GenerateDueTableOfAMonth extends javax.swing.JFrame {
      */
     public GenerateDueTableOfAMonth() {
         initComponents();
+       
     }
 
     /**
