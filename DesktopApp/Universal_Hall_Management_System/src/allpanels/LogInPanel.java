@@ -222,6 +222,7 @@ public class LogInPanel extends javax.swing.JPanel {
         if (type == 1) {
             parentFrame.goAdminPanel(resultSet.getString("full_name"));
             parentFrame.setTitle("Admin");
+         
             
         }
         else if(type ==2) {

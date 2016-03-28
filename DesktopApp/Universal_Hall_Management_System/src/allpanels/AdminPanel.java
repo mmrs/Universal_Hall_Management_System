@@ -8,6 +8,7 @@ package allpanels;
 import AdminTabPackages.AnalysisAndStatisticsPanel;
 import AdminTabPackages.CheckInCheckOutPanel;
 import AdminTabPackages.HallInformationPanel;
+import AdminTabPackages.LastTwoMonthDuePanel;
 import AdminTabPackages.MealManagementPanel;
 import AdminTabPackages.StudentManagementPanel;
 import AdminTabPackages.mealManagementPackage.GenerateDueTableOfAMonth;
@@ -38,6 +39,9 @@ public class AdminPanel extends javax.swing.JPanel {
     CardLayout cardLayoutForMealManagementTab = new CardLayout();
     CardLayout cardLayoutForCheckInCheckOutTab = new CardLayout();
     CardLayout cardLayoutForAnalysisTab = new CardLayout();
+    CardLayout cardLayoutForMealDueTab = new CardLayout();
+    LastTwoMonthDuePanel lastTwoMonthDuePanel = new LastTwoMonthDuePanel();
+    
     AnalysisAndStatisticsPanel analysisAndStatisticsPanel = new AnalysisAndStatisticsPanel();
     
 
@@ -61,9 +65,14 @@ public class AdminPanel extends javax.swing.JPanel {
         setAnalysisTab();
         updateMealRateAndDues();
       //mainAdminTabPanel.remove(4);
+      setMealDueTab();
         
     }
-    
+    void setMealDueTab() {
+         mealDueTabContainer.setLayout(cardLayoutForMealDueTab);
+        mealDueTabContainer.add("MealDuePanel", lastTwoMonthDuePanel);
+        cardLayoutForMealDueTab.show(mealDueTabContainer, "MealDuePanel");
+    }
     
 void setAnalysisTab() {
          analysisContainer.setLayout(cardLayoutForAnalysisTab);
@@ -92,7 +101,8 @@ void setAnalysisTab() {
         cardLayoutForHallInformationTab.show(hallInformationPanelContainer, "HallInformationPanel");
     }
     public void setHallInfoPanelDisable(){
-          mainAdminTabPanel.remove(4);
+        //  mainAdminTabPanel.remove(4);
+          mainAdminTabPanel.remove(hallInformationTabPanel);
           
     }
     /**
@@ -115,6 +125,8 @@ void setAnalysisTab() {
         checkInCheckOutPanelContainer = new javax.swing.JPanel();
         hallInformationTabPanel = new javax.swing.JPanel();
         hallInformationPanelContainer = new javax.swing.JPanel();
+        mealDueTabPanel = new javax.swing.JPanel();
+        mealDueTabContainer = new javax.swing.JPanel();
         adminInformationLabel = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
 
@@ -242,6 +254,30 @@ void setAnalysisTab() {
 
         mainAdminTabPanel.addTab("Hall Information", hallInformationTabPanel);
 
+        javax.swing.GroupLayout mealDueTabContainerLayout = new javax.swing.GroupLayout(mealDueTabContainer);
+        mealDueTabContainer.setLayout(mealDueTabContainerLayout);
+        mealDueTabContainerLayout.setHorizontalGroup(
+            mealDueTabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 692, Short.MAX_VALUE)
+        );
+        mealDueTabContainerLayout.setVerticalGroup(
+            mealDueTabContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout mealDueTabPanelLayout = new javax.swing.GroupLayout(mealDueTabPanel);
+        mealDueTabPanel.setLayout(mealDueTabPanelLayout);
+        mealDueTabPanelLayout.setHorizontalGroup(
+            mealDueTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mealDueTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        mealDueTabPanelLayout.setVerticalGroup(
+            mealDueTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mealDueTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        mainAdminTabPanel.addTab("Meal Due Table", mealDueTabPanel);
+
         adminInformationLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         adminInformationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         adminInformationLabel.setText("Admin Information Panel");
@@ -280,8 +316,9 @@ void setAnalysisTab() {
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
         parentFrame.goLoginPanel();
-        //mainAdminTabPanel.add(hallInformationTabPanel);
+ 
         mainAdminTabPanel.add("Hall Information", hallInformationTabPanel);
+ 
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     public void setUserInformationLabel(String name) {
@@ -314,6 +351,8 @@ void setAnalysisTab() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logOutButton;
     private javax.swing.JTabbedPane mainAdminTabPanel;
+    private javax.swing.JPanel mealDueTabContainer;
+    private javax.swing.JPanel mealDueTabPanel;
     private javax.swing.JPanel mealManagementTabPanel;
     private javax.swing.JPanel studentManagementPanelContainer;
     private javax.swing.JPanel studentManagementTabPanel;

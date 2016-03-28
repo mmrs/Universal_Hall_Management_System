@@ -279,7 +279,7 @@ public class BasicQuery {
         ResultSet result = CreateConnection.getResultFromDatabase(query);
         ArrayList<MealDue> mealDue = new ArrayList<>();
         while (result.next()) {
-            mealDue.add(new MealDue(result.getInt(1), result.getInt(2)));
+            mealDue.add(new MealDue(result.getInt(1), result.getInt(2),year,month));
         }
         return mealDue;
     }

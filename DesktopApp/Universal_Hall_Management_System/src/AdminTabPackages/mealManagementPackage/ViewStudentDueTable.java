@@ -34,6 +34,7 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
         super("Student Due Information");
         initComponents();
         viewAllDateCheckBox.setSelected(true);
+        toggleDateSelection();
          viewButtonPressed();
     }
 
@@ -433,7 +434,11 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
 
     private void viewAllDateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllDateCheckBoxActionPerformed
         // TODO add your handling code here:
-        if (viewAllDateCheckBox.isSelected()) {
+        toggleDateSelection();
+    }//GEN-LAST:event_viewAllDateCheckBoxActionPerformed
+    
+    public void toggleDateSelection(){
+           if (viewAllDateCheckBox.isSelected()) {
             endYearChooser.setEnabled(false);
             endMonthChooser.setEnabled(false);
             startMonthChooser.setEnabled(false);
@@ -444,8 +449,8 @@ public class ViewStudentDueTable extends javax.swing.JFrame {
             startMonthChooser.setEnabled(true);
             startYearChooser.setEnabled(true);
         }
-    }//GEN-LAST:event_viewAllDateCheckBoxActionPerformed
-
+    }
+    
     private void regNoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regNoTextFieldKeyTyped
         // TODO add your handling code here:
         char key = evt.getKeyChar();

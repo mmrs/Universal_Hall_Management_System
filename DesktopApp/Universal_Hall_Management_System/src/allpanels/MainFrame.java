@@ -40,7 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
     AdminPanel adminPanel = null;
     GateKeeperPanel gateKeeperPanel = null;
     DiningManagerPanel dinigManagerPanel = null;
-    
+    int adminFlag = 0;
     public MainFrame() {
         super("Universal Hall Management System  1.2");
         initComponents();
@@ -77,8 +77,10 @@ public class MainFrame extends javax.swing.JFrame {
      
        cardLayout.show(panelContainer, "AdminPanel");
        adminPanel.setUserInformationLabel(userName);
-      if(CurrentUserInfo.USER_NAME.equals("admin")==false)
+      if(CurrentUserInfo.USER_NAME.equals("admin")==false){
         adminPanel.setHallInfoPanelDisable();
+      //  adminFlag = 1;
+      }
        
    }
    

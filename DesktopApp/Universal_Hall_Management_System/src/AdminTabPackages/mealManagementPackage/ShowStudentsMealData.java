@@ -35,7 +35,7 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
         initComponents();
         allDateCheckBox.setSelected(true);
          viewButtonPressed();
-        
+        toggleDateSelection();
     }
 
     /**
@@ -335,15 +335,17 @@ public class ShowStudentsMealData extends javax.swing.JFrame {
 
     private void allDateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allDateCheckBoxActionPerformed
         // TODO add your handling code here:
-        if (allDateCheckBox.isSelected()) {
+     toggleDateSelection();
+    }//GEN-LAST:event_allDateCheckBoxActionPerformed
+    public void toggleDateSelection(){
+           if (allDateCheckBox.isSelected()) {
             startDate.setEnabled(false);
             endDate.setEnabled(false);
         } else {
             startDate.setEnabled(true);
             endDate.setEnabled(true);
         }
-    }//GEN-LAST:event_allDateCheckBoxActionPerformed
-
+    }
     private void regNoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_regNoTextFieldKeyTyped
         // TODO add your handling code here:
         char key = evt.getKeyChar();

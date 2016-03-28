@@ -13,7 +13,18 @@ public class MealDue {
     private int id;
     private int total;
     private String yearMonth;
-
+String[] str = {"January",      
+   "February",
+   "March",        
+   "April",        
+   "May",          
+   "June",         
+   "July",         
+   "August",       
+   "September",    
+   "October",      
+   "November",     
+   "December"};
     public void setYearMonth(String yearMonth) {
         this.yearMonth = yearMonth;
     }
@@ -26,6 +37,11 @@ public class MealDue {
         this.id = id;
         this.total = total;
         this.yearMonth = yearMonth;
+    }
+    public MealDue(int id, int total, int year,int month) {
+        this.id = id;
+        this.total = total;
+        this.yearMonth = str[month]+" "+year;
     }
     public MealDue() {
     }
